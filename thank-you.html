@@ -84,33 +84,36 @@
   </script>
   <script>
     (function(){
-      var fired=false;
-      function fireConversions(){
-        if(fired)return;
-        try{if(sessionStorage.getItem('prova_lead_fired')==='1'){fired=true;return;}sessionStorage.setItem('prova_lead_fired','1');}catch(e){}
-        fired=true;
-        // Meta Lead
-        if(typeof fbq==='function'){
-          fbq('track','Lead',{content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000});
-        }
-        // TikTok SubmitForm (chuyển đổi form)
-        if(window.ttq&&typeof ttq.track==='function'){
-          ttq.track('SubmitForm',{
-            contents:[{content_id:'prova-ultimate-3.5',content_type:'product',content_name:'Prova Ultimate 3.5'}],
-            value:1060000,
-            currency:'VND'
-          });
-        }
-        try{sessionStorage.removeItem('prova_lead');}catch(e2){}
+      var metaDone=false, ttDone=false;
+      function fireMeta(){
+        if(metaDone||typeof fbq!=='function')return;
+        try{if(sessionStorage.getItem('prova_meta_lead')==='1'){metaDone=true;return;}}catch(e){}
+        metaDone=true;
+        try{sessionStorage.setItem('prova_meta_lead','1');}catch(e2){}
+        fbq('track','Lead',{content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000});
       }
-      function tryFire(){
-        var metaReady=typeof fbq==='function';
-        var ttReady=window.ttq&&typeof ttq.track==='function';
-        if(metaReady||ttReady){fireConversions();return;}
-        setTimeout(tryFire,150);
+      function fireTikTok(){
+        if(ttDone||!(window.ttq&&typeof ttq.track==='function'))return;
+        try{if(sessionStorage.getItem('prova_tt_submit')==='1'){ttDone=true;return;}}catch(e){}
+        ttDone=true;
+        try{sessionStorage.setItem('prova_tt_submit','1');}catch(e2){}
+        ttq.track('SubmitForm',{
+          contents:[{content_id:'prova-ultimate-3.5',content_type:'product',content_name:'Prova Ultimate 3.5'}],
+          value:1060000,
+          currency:'VND'
+        });
       }
-      tryFire();
-      window.addEventListener('load',function(){setTimeout(tryFire,100);setTimeout(fireConversions,800);});
+      function tick(){
+        fireMeta();
+        fireTikTok();
+        if(metaDone&&ttDone){
+          try{sessionStorage.removeItem('prova_lead');}catch(e){}
+          return;
+        }
+        setTimeout(tick,150);
+      }
+      tick();
+      window.addEventListener('load',function(){setTimeout(tick,100);setTimeout(tick,600);setTimeout(tick,1500);});
     })();
   </script>
 </head>
