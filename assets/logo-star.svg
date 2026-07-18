@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Prova Sport">
-  <path d="M100 8 L122 68 L186 68 L134 106 L154 168 L100 132 L46 168 L66 106 L14 68 L78 68 Z" fill="#E30613"/>
-  <circle cx="100" cy="98" r="42" fill="#FFFFFF"/>
-  <circle cx="100" cy="98" r="38" stroke="#E30613" stroke-width="3" fill="none"/>
-  <path d="M88 120V78h16c8 0 13.2 4.2 13.2 11.2 0 7.2-5.4 11.8-13.6 11.8H96.5V120H88zm8.5-14.2h6.2c3.4 0 5.5-1.8 5.5-4.6s-2-4.4-5.3-4.4H96.5v9z" fill="#E30613"/>
-</svg>

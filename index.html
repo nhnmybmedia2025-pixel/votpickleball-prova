@@ -11,11 +11,10 @@
   <meta property="og:image" content="https://votpickleball-prova.pages.dev/assets/hero-banner.jpg">
   <meta property="og:url" content="https://votpickleball-prova.pages.dev/">
   <meta name="theme-color" content="#E30613">
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="/assets/hero-banner.jpg?v=d" fetchpriority="high">
+  <!-- Performance: system font first, optional web font async, hero preload -->
+  <link rel="preload" as="image" href="/assets/hero-banner.jpg?v=g" fetchpriority="high">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://connect.facebook.net">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -24,7 +23,7 @@
           colors: {
             prova: { red: '#E30613', dark: '#0B0B0B', muted: '#6B7280', line: '#E5E7EB' }
           },
-          fontFamily: { sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'] },
+          fontFamily: { sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'] },
           maxWidth: { site: '1120px' },
           boxShadow: {
             card: '0 4px 24px rgba(11,11,11,0.06)',
@@ -34,16 +33,17 @@
       }
     }
   </script>
+  <!-- Font Awesome async (không chặn LCP) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="/assets/tracking-config.js?v=f" defer></script>
-  <script src="/assets/meta-pixel.js?v=f" defer></script>
+  <!-- Pixel sau interactive -->
+  <script src="/assets/tracking-config.js?v=g" defer></script>
+  <script src="/assets/meta-pixel.js?v=g" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       color: #0B0B0B;
       background: #fff;
       -webkit-font-smoothing: antialiased;
@@ -253,7 +253,7 @@
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-prova-line">
     <div class="max-w-site mx-auto px-4 sm:px-6 h-14 sm:h-[64px] flex items-center justify-between gap-3">
       <a href="#" class="flex items-center gap-2.5 min-w-0">
-        <img src="/assets/logo-mark.svg?v=d" alt="Prova" width="40" height="40" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0">
+        <img src="/assets/logo-mark.svg?v=g" alt="Prova" width="40" height="40" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0">
         <div class="leading-none">
           <div class="font-black text-[17px] sm:text-xl tracking-tight">PROVA</div>
           <div class="text-[9px] sm:text-[10px] font-semibold tracking-[0.14em] text-prova-red uppercase">Sport</div>
@@ -274,7 +274,7 @@
   <section class="relative bg-prova-dark text-white overflow-hidden">
     <div class="relative w-full min-h-[520px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[620px]">
       <img
-        src="/assets/hero-banner.jpg?v=d"
+        src="/assets/hero-banner.jpg?v=g"
         alt="Prova Ultimate 3.5 – vợt pickleball và combo quà"
         class="absolute inset-0 w-full h-full object-cover object-[78%_center] sm:object-[70%_center] md:object-right"
         width="2000" height="900" fetchpriority="high">
@@ -426,9 +426,9 @@
             controls
             playsinline
             preload="none"
-            poster="/assets/video-poster.jpg?v=d"
+            poster="/assets/video-poster.jpg?v=g"
             title="Video giới thiệu Prova Ultimate 3.5">
-            <source src="/assets/prova-intro.mp4?v=d" type="video/mp4">
+            <source src="/assets/prova-intro.mp4?v=g" type="video/mp4">
             Trình duyệt của bạn không hỗ trợ video HTML5.
           </video>
           <div class="video-play-hint" id="video-hint" aria-hidden="true">
@@ -489,22 +489,22 @@
     <div class="gallery-grid">
       <!-- Ảnh chính: poster sân đêm – full khung -->
       <div class="media gallery-main rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-3x4">
-        <img src="/assets/poster-stadium.jpg?v=d" alt="Prova Ultimate 3.5 – 5 màu trên sân" loading="lazy" style="object-position: center 25%;">
+        <img src="/assets/poster-stadium.jpg?v=g" alt="Prova Ultimate 3.5 – 5 màu trên sân" loading="lazy" style="object-position: center 25%;">
       </div>
 
       <div class="gallery-side">
         <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-4x3">
-          <img src="/assets/product-flatlay.jpg?v=d" alt="Combo Prova trên sân vàng" loading="lazy" style="object-position: center;">
+          <img src="/assets/product-flatlay.jpg?v=g" alt="Combo Prova trên sân vàng" loading="lazy" style="object-position: center;">
         </div>
         <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-4x3">
-          <img src="/assets/lifestyle-model.jpg?v=d" alt="Prova Sport lifestyle" loading="lazy" style="object-position: center 18%;">
+          <img src="/assets/lifestyle-model.jpg?v=g" alt="Prova Sport lifestyle" loading="lazy" style="object-position: center 18%;">
         </div>
       </div>
     </div>
 
     <!-- Banner full width dưới gallery -->
     <div class="mt-3 sm:mt-4 media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-16x9 sm:ratio-banner">
-      <img src="/assets/hero-banner.jpg?v=d" alt="Prova Ultimate 3.5 full lineup" loading="lazy" class="object-[center_center] sm:object-right">
+      <img src="/assets/hero-banner.jpg?v=g" alt="Prova Ultimate 3.5 full lineup" loading="lazy" class="object-[center_center] sm:object-right">
     </div>
   </section>
 
@@ -521,7 +521,7 @@
 
       <div class="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
         <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-soft ratio-square sm:ratio-4x3 lg:ratio-square order-2 lg:order-1">
-          <img src="/assets/product-flatlay.jpg?v=d" alt="Combo quà tặng Prova đầy đủ" loading="lazy">
+          <img src="/assets/product-flatlay.jpg?v=g" alt="Combo quà tặng Prova đầy đủ" loading="lazy">
         </div>
 
         <div class="order-1 lg:order-2 space-y-2.5 sm:space-y-3">
@@ -584,7 +584,7 @@
   <section class="max-w-site mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
     <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-16x9 lg:ratio-4x3 order-2 lg:order-1">
-        <img src="/assets/hero-banner.jpg?v=d" alt="Thông số Prova Ultimate 3.5" loading="lazy" class="object-right">
+        <img src="/assets/hero-banner.jpg?v=g" alt="Thông số Prova Ultimate 3.5" loading="lazy" class="object-right">
       </div>
       <div class="order-1 lg:order-2">
         <p class="section-label mb-2">Thông số kỹ thuật</p>
@@ -689,7 +689,7 @@
   <section id="form" class="bg-prova-dark text-white py-10 sm:py-14 md:py-16">
     <div class="max-w-md mx-auto px-4 sm:px-6">
       <div class="text-center mb-5">
-        <img src="/assets/logo-mark-white.svg?v=d" alt="Prova" width="44" height="44" class="w-11 h-11 mx-auto mb-2.5">
+        <img src="/assets/logo-mark-white.svg?v=g" alt="Prova" width="44" height="44" class="w-11 h-11 mx-auto mb-2.5">
         <h2 class="section-title text-2xl mb-1">Đặt hàng – 30 giây</h2>
         <p class="text-sm text-white/55">Không cần thanh toán online · Chỉ cần SĐT để Prova gọi chốt</p>
       </div>
@@ -748,7 +748,7 @@
   <footer class="bg-black text-white/60 py-8 border-t border-white/5">
     <div class="max-w-site mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-5">
       <div class="flex items-center gap-2.5">
-        <img src="/assets/logo-mark.svg?v=d" alt="Prova Sport" width="40" height="40" class="w-10 h-10">
+        <img src="/assets/logo-mark.svg?v=g" alt="Prova Sport" width="40" height="40" class="w-10 h-10">
         <div>
           <div class="font-black text-white tracking-tight">PROVA SPORT</div>
           <div class="text-[10px] tracking-[0.14em] uppercase text-white/35">All About Pickleball</div>
@@ -866,7 +866,7 @@
         });
         try { sessionStorage.setItem('prova_lead', JSON.stringify({ name: name, phone: phone, color: color, t: Date.now() })); } catch (x) {}
         // Dùng .html để tránh redirect loop Pretty URL trên một số setup
-        location.href = '/thank-you.html' + (location.search || '');
+        location.href = '/thank-you' + (location.search || '');
       } catch (err) {
         setMsg('Lỗi gửi. Gọi 0868.93.16.91', 'err');
         submitBtn.disabled = false;
