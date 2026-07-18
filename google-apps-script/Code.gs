@@ -1,22 +1,21 @@
 /**
- * Prova Ultimate 3.5 – Form → Google Sheet + Telegram + Meta CAPI (tuỳ chọn)
+ * Prova Ultimate 3.5 – Form → Sheet + Telegram + TikTok Events API + Meta CAPI
  *
- * ===== SCRIPT PROPERTIES (bắt buộc cho Telegram) =====
- * Project Settings (bánh răng) → Script properties:
+ * ===== SCRIPT PROPERTIES =====
+ * TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID     (bắt buộc Telegram)
+ * TIKTOK_ACCESS_TOKEN                     (Events API access token)
+ * TIKTOK_PIXEL_ID = D9DSLURC77U79CKF57FG  (mặc định trong code nếu trống)
+ * META_ACCESS_TOKEN, META_DATASET_ID      (tuỳ chọn)
  *
- *   TELEGRAM_BOT_TOKEN  = 123456:ABC-DEF...   (từ @BotFather)
- *   TELEGRAM_CHAT_ID    = 123456789           (số chat_id của bạn)
- *
- * Tuỳ chọn Meta:
- *   META_ACCESS_TOKEN, META_DATASET_ID=1700938823637870
- *
- * Sau khi sửa code: Deploy → Manage deployments → Edit → New version → Deploy
- * Execute as: Me | Who has access: Anyone
+ * Sau sửa code: Deploy → New version
+ * Lần đầu: Run testTelegram / testTikTok → Allow UrlFetch
  */
 
 var SHEET_NAME = 'DonHang';
 var LEAD_EVENT_SOURCE = 'Prova Landing CRM';
 var HOTLINE = '0868.93.16.91';
+var DEFAULT_TIKTOK_PIXEL = 'D9DSLURC77U79CKF57FG';
+var SALE_VALUE = 1060000;
 
 function doPost(e) {
   try {
@@ -46,35 +45,27 @@ function doPost(e) {
       data.page || ''
     ]);
 
-    // 1) Telegram – báo đơn mới (ưu tiên)
     var tgResult = { skipped: true };
-    try {
-      tgResult = sendTelegramOrder_(data, now);
-    } catch (tgErr) {
-      tgResult = { ok: false, error: String(tgErr) };
-      console.error('Telegram error: ' + tgErr);
-    }
+    try { tgResult = sendTelegramOrder_(data, now); }
+    catch (tgErr) { tgResult = { ok: false, error: String(tgErr) }; }
 
-    // 2) Meta CAPI (tuỳ chọn – không chặn đơn)
+    var ttResult = { skipped: true };
+    try { ttResult = sendTikTokSubmitForm_(data); }
+    catch (ttErr) { ttResult = { ok: false, error: String(ttErr) }; }
+
     var metaResult = { skipped: true };
-    try {
-      metaResult = sendMetaCrmLead_(data);
-    } catch (metaErr) {
-      metaResult = { ok: false, error: String(metaErr) };
-      console.error('Meta CAPI error: ' + metaErr);
-    }
+    try { metaResult = sendMetaCrmLead_(data); }
+    catch (metaErr) { metaResult = { ok: false, error: String(metaErr) }; }
 
     return jsonResponse({
       result: 'success',
       message: 'OK',
       telegram: tgResult,
+      tiktok: ttResult,
       meta: metaResult
     });
   } catch (err) {
-    // Cố gắng báo lỗi qua Telegram
-    try {
-      sendTelegramText_('⚠️ Lỗi form Prova: ' + String(err));
-    } catch (e2) {}
+    try { sendTelegramText_('⚠️ Lỗi form Prova: ' + String(err)); } catch (e2) {}
     return jsonResponse({ result: 'error', message: String(err) });
   }
 }
@@ -82,7 +73,7 @@ function doPost(e) {
 function doGet() {
   return jsonResponse({
     result: 'ok',
-    message: 'Prova form endpoint. POST = Sheet + Telegram + Meta.'
+    message: 'Prova form endpoint. POST = Sheet + Telegram + TikTok + Meta.'
   });
 }
 
@@ -108,6 +99,20 @@ function getTelegramUpdates() {
   }
   var res = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/getUpdates');
   Logger.log(res.getContentText());
+}
+
+/** Test TikTok Events API – Run trong editor sau khi set TIKTOK_ACCESS_TOKEN */
+function testTikTok() {
+  var r = sendTikTokSubmitForm_({
+    name: 'Test TikTok API',
+    phone: '0868931691',
+    color: 'Xanh mint',
+    address: 'Test HCM',
+    ttclid: '',
+    user_agent: 'AppsScript-testTikTok',
+    page: 'https://votpickleball-prova.pages.dev/thank-you'
+  });
+  Logger.log(JSON.stringify(r));
 }
 
 // ─── Telegram ───────────────────────────────────────────────
@@ -190,6 +195,98 @@ function getOrCreateSheet_() {
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+// ─── TikTok Events API (server-side) ────────────────────────
+
+/**
+ * Gửi event SubmitForm lên TikTok Events API (web).
+ * Docs: POST /open_api/v1.3/event/track/
+ * Header: Access-Token
+ */
+function sendTikTokSubmitForm_(data) {
+  var props = PropertiesService.getScriptProperties();
+  var accessToken = (props.getProperty('TIKTOK_ACCESS_TOKEN') || '').trim();
+  var pixelId = (props.getProperty('TIKTOK_PIXEL_ID') || DEFAULT_TIKTOK_PIXEL).trim();
+
+  if (!accessToken) {
+    return { ok: false, error: 'Chưa set TIKTOK_ACCESS_TOKEN trong Script properties' };
+  }
+
+  var phoneNorm = normalizePhone_(data.phone || ''); // 84xxxxxxxxx
+  var eventTime = Math.floor(Date.now() / 1000);
+  var eventId = 'tt_prova_' + eventTime + '_' + (phoneNorm.slice(-6) || Utilities.getUuid().slice(0, 8));
+
+  var user = {};
+  if (phoneNorm) {
+    // TikTok: SHA256 of E.164 with leading +
+    user.phone = sha256Hex_('+' + phoneNorm);
+  }
+  if (data.user_agent) user.user_agent = String(data.user_agent);
+  if (data.ttclid) user.ttclid = String(data.ttclid);
+  if (data.ip) user.ip = String(data.ip);
+  // external_id optional from phone hash
+  if (phoneNorm) user.external_id = sha256Hex_(phoneNorm);
+
+  var pageUrl = data.page || 'https://votpickleball-prova.pages.dev/thank-you';
+  var payload = {
+    event_source: 'web',
+    event_source_id: pixelId,
+    data: [{
+      event: 'SubmitForm',
+      event_time: eventTime,
+      event_id: eventId,
+      user: user,
+      page: {
+        url: pageUrl
+      },
+      properties: {
+        currency: 'VND',
+        value: SALE_VALUE,
+        content_type: 'product',
+        contents: [{
+          content_id: 'prova-ultimate-3.5',
+          content_name: 'Prova Ultimate 3.5',
+          content_category: 'Pickleball',
+          quantity: 1,
+          price: SALE_VALUE
+        }]
+      }
+    }]
+  };
+
+  // Test events (tuỳ chọn): set TIKTOK_TEST_EVENT_CODE trong properties
+  var testCode = (props.getProperty('TIKTOK_TEST_EVENT_CODE') || '').trim();
+  if (testCode) {
+    payload.test_event_code = testCode;
+  }
+
+  var url = 'https://business-api.tiktok.com/open_api/v1.3/event/track/';
+  var res = UrlFetchApp.fetch(url, {
+    method: 'post',
+    contentType: 'application/json',
+    headers: {
+      'Access-Token': accessToken
+    },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  });
+
+  var code = res.getResponseCode();
+  var body = res.getContentText();
+  console.log('TikTok Events API HTTP ' + code + ': ' + body);
+
+  var ok = false;
+  try {
+    var parsed = JSON.parse(body);
+    ok = code >= 200 && code < 300 && (parsed.code === 0 || parsed.message === 'OK' || parsed.code === undefined);
+    // TikTok success usually { code: 0, message: "OK", ... }
+    if (parsed.code === 0) ok = true;
+  } catch (e) {
+    ok = code >= 200 && code < 300;
+  }
+
+  return { ok: ok, http: code, event_id: eventId, body: body };
 }
 
 // ─── Meta CRM / CAPI (tuỳ chọn) ─────────────────────────────
