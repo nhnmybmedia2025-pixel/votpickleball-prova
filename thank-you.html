@@ -7,31 +7,38 @@
   <meta name="description" content="Cảm ơn bạn đã đặt Prova Ultimate 3.5. Prova Sport sẽ gọi xác nhận sớm.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#E30613">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { prova: { red: '#E30613', dark: '#0B0B0B' } },
-          fontFamily: { sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'] }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Không dùng Tailwind CDN / Font Awesome → load cực nhanh -->
   <style>
-    body { font-family: 'Be Vietnam Pro', system-ui, sans-serif; }
-    .step { display: flex; gap: 12px; text-align: left; padding: 12px 0; border-bottom: 1px solid #F3F4F6; }
-    .step:last-child { border-bottom: 0; }
-    .step-n {
-      width: 28px; height: 28px; border-radius: 9999px; flex-shrink: 0;
-      background: #FEE2E2; color: #E30613; font-weight: 800; font-size: 13px;
-      display: flex; align-items: center; justify-content: center;
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Be Vietnam Pro",sans-serif;background:#F9FAFB;color:#0B0B0B;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:32rem;margin:0 auto;padding:0 1rem}
+    header{background:#fff;border-bottom:1px solid #F3F4F6}
+    .head{height:3.5rem;display:flex;align-items:center;gap:.65rem}
+    .logo{width:2.25rem;height:2.25rem;border-radius:999px;border:2.5px solid #E30613;display:flex;align-items:center;justify-content:center;font-weight:900;color:#E30613;font-size:1rem}
+    .brand{font-weight:900;font-size:1.1rem;letter-spacing:-.02em;line-height:1}
+    .sub{font-size:10px;font-weight:700;letter-spacing:.14em;color:#E30613;text-transform:uppercase}
+    main{padding:2.5rem 0 3rem}
+    .card{background:#fff;border:1px solid #F3F4F6;border-radius:1.5rem;padding:1.75rem 1.5rem;box-shadow:0 12px 40px rgba(227,6,19,.06);text-align:center}
+    .ok{width:4rem;height:4rem;margin:0 auto 1rem;border-radius:999px;background:#ECFDF5;color:#10B981;display:flex;align-items:center;justify-content:center;font-size:1.75rem;font-weight:700}
+    h1{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.5rem}
+    .muted{color:#6B7280;font-size:.9rem;line-height:1.55;margin-bottom:.35rem}
+    .steps{background:#F9FAFB;border-radius:1rem;padding:.75rem 1rem;text-align:left;margin:1.25rem 0 1.5rem}
+    .steps h2{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;padding:.35rem 0}
+    .step{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid #F3F4F6}
+    .step:last-child{border-bottom:0}
+    .n{width:1.75rem;height:1.75rem;border-radius:999px;background:#FEE2E2;color:#E30613;font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step strong{display:block;font-size:.875rem;margin-bottom:.15rem}
+    .step span{font-size:.75rem;color:#6B7280}
+    .btn{display:flex;align-items:center;justify-content:center;height:3rem;border-radius:999px;font-weight:700;font-size:.875rem;margin-bottom:.65rem}
+    .btn-red{background:#E30613;color:#fff}
+    .btn-red:active{background:#C00510}
+    .btn-ghost{border:1px solid #E5E7EB;color:#0B0B0B;background:#fff}
+    .note{font-size:.7rem;color:#9CA3AF;line-height:1.5;margin-top:1rem}
+    footer{text-align:center;font-size:.75rem;color:#9CA3AF;padding-bottom:2rem}
+    footer a{color:#E30613}
   </style>
 
-  <!-- Advanced Matching từ session (trước pixel) -->
   <script>
     (function () {
       try {
@@ -53,137 +60,84 @@
     })();
   </script>
 
-  <!-- Meta Pixel: INLINE (bắt buộc trên thank-you – không phụ thuộc file ngoài) -->
+  <!-- Meta Pixel + Lead (inline, nhẹ) -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    var _am = window.PROVA_PIXEL_USER || {};
-    var _init = {};
-    if (_am.ph) _init.ph = _am.ph;
-    if (_am.fn) _init.fn = _am.fn;
-    if (_am.ln) _init.ln = _am.ln;
-    if (Object.keys(_init).length) {
-      fbq('init', '4340331656281072', _init);
-    } else {
-      fbq('init', '4340331656281072');
-    }
-    fbq('track', 'PageView');
+    var _am=window.PROVA_PIXEL_USER||{},_i={};
+    if(_am.ph)_i.ph=_am.ph;if(_am.fn)_i.fn=_am.fn;if(_am.ln)_i.ln=_am.ln;
+    Object.keys(_i).length?fbq('init','4340331656281072',_i):fbq('init','4340331656281072');
+    fbq('track','PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" alt=""
-    src="https://www.facebook.com/tr?id=4340331656281072&ev=PageView&noscript=1"/></noscript>
-
-  <!-- Event Lead = 1 chuyển đổi ads -->
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=4340331656281072&ev=PageView&noscript=1"/></noscript>
   <script>
-    (function () {
-      function fireLead() {
-        if (typeof fbq !== 'function') { setTimeout(fireLead, 150); return; }
-        try {
-          if (sessionStorage.getItem('prova_lead_fired') === '1') return;
-          sessionStorage.setItem('prova_lead_fired', '1');
-        } catch (e) {}
-        fbq('track', 'Lead', {
-          content_name: 'Prova Ultimate 3.5',
-          content_category: 'Pickleball Paddle',
-          currency: 'VND',
-          value: 1060000
-        });
-        try { sessionStorage.removeItem('prova_lead'); } catch (e2) {}
+    (function(){
+      function fire(){
+        if(typeof fbq!=='function'){setTimeout(fire,120);return;}
+        try{if(sessionStorage.getItem('prova_lead_fired')==='1')return;sessionStorage.setItem('prova_lead_fired','1');}catch(e){}
+        fbq('track','Lead',{content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000});
+        try{sessionStorage.removeItem('prova_lead');}catch(e2){}
       }
-      // Fire ASAP + backup on load
-      fireLead();
-      window.addEventListener('load', function () { setTimeout(fireLead, 100); });
+      fire();
+      window.addEventListener('load',function(){setTimeout(fire,80);});
     })();
   </script>
 </head>
-<body class="bg-gray-50 min-h-screen antialiased">
-
-  <header class="bg-white border-b border-gray-100">
-    <div class="max-w-lg mx-auto px-4 h-14 flex items-center gap-2.5">
-      <img src="/assets/logo-mark.svg?v=f" alt="Prova" width="36" height="36" class="w-9 h-9">
-      <div class="leading-none">
-        <div class="font-black text-lg tracking-tight text-prova-dark">PROVA</div>
-        <div class="text-[10px] font-semibold tracking-[0.14em] text-prova-red uppercase">Sport</div>
+<body>
+  <header>
+    <div class="wrap head">
+      <div class="logo" aria-hidden="true">P</div>
+      <div>
+        <div class="brand">PROVA</div>
+        <div class="sub">Sport</div>
       </div>
     </div>
   </header>
 
-  <main class="max-w-lg mx-auto px-4 py-10 sm:py-14">
-    <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-red-500/5 p-6 sm:p-8 text-center">
-      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-50 text-green-500 flex items-center justify-center">
-        <i class="fas fa-check text-2xl"></i>
-      </div>
+  <main class="wrap">
+    <div class="card">
+      <div class="ok" aria-hidden="true">✓</div>
+      <h1>Đặt hàng thành công!</h1>
+      <p class="muted" id="ty-sub">Cảm ơn bạn đã chọn <strong>Prova Ultimate 3.5</strong>.</p>
+      <p class="muted">Prova sẽ <strong>gọi xác nhận trong 5–30 phút</strong> (giờ hành chính). Giữ máy giúp shop nhé!</p>
 
-      <h1 class="text-2xl sm:text-[28px] font-black text-prova-dark tracking-tight mb-2">
-        Đặt hàng thành công!
-      </h1>
-      <p id="ty-sub" class="text-gray-600 text-sm sm:text-[15px] leading-relaxed mb-1">
-        Cảm ơn bạn đã chọn <strong class="text-prova-dark">Prova Ultimate 3.5</strong>.
-      </p>
-      <p class="text-gray-500 text-sm mb-6">
-        Prova sẽ <strong class="text-prova-dark">gọi xác nhận trong 5–30 phút</strong> (giờ hành chính).
-        Giữ máy giúp shop nhé!
-      </p>
-
-      <div class="bg-gray-50 rounded-2xl px-4 py-2 mb-6 text-left">
-        <p class="text-xs font-bold text-gray-500 uppercase tracking-wide pt-2 pb-1">Bước tiếp theo</p>
+      <div class="steps">
+        <h2>Bước tiếp theo</h2>
         <div class="step">
-          <span class="step-n">1</span>
-          <div>
-            <p class="font-bold text-sm text-prova-dark">Prova gọi xác nhận</p>
-            <p class="text-xs text-gray-500 mt-0.5">Kiểm tra màu vợt, địa chỉ, thời gian giao</p>
-          </div>
+          <span class="n">1</span>
+          <div><strong>Prova gọi xác nhận</strong><span>Kiểm tra màu vợt, địa chỉ, giờ giao</span></div>
         </div>
         <div class="step">
-          <span class="step-n">2</span>
-          <div>
-            <p class="font-bold text-sm text-prova-dark">Đóng gói + giao 2–4 ngày</p>
-            <p class="text-xs text-gray-500 mt-0.5">Free ship toàn quốc · Theo dõi qua SĐT</p>
-          </div>
+          <span class="n">2</span>
+          <div><strong>Đóng gói + giao 2–4 ngày</strong><span>Free ship toàn quốc · Theo dõi qua SĐT</span></div>
         </div>
         <div class="step">
-          <span class="step-n">3</span>
-          <div>
-            <p class="font-bold text-sm text-prova-dark">Ra sân full combo</p>
-            <p class="text-xs text-gray-500 mt-0.5">Vợt + mũ + áo + khăn + bóng + tất + cán + dán viền</p>
-          </div>
+          <span class="n">3</span>
+          <div><strong>Ra sân full combo</strong><span>Vợt + mũ + áo + khăn + bóng + tất + cán + dán viền</span></div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 gap-2.5 mb-2">
-        <a href="tel:0868931691"
-           class="inline-flex items-center justify-center gap-2 h-12 px-6 bg-prova-red hover:bg-red-700 text-white font-bold rounded-full text-sm">
-          <i class="fas fa-phone"></i> Gọi Prova: 0868.93.16.91
-        </a>
-        <a href="/"
-           class="inline-flex items-center justify-center gap-2 h-12 px-6 border border-gray-200 hover:bg-gray-50 text-prova-dark font-semibold rounded-full text-sm">
-          Về trang sản phẩm
-        </a>
-      </div>
-
-      <p class="text-[11px] text-gray-400 mt-4 leading-relaxed">
-        Cần đổi màu / giờ giao? Gọi hotline — đừng đặt form lần 2 để tránh trùng đơn.
-      </p>
+      <a class="btn btn-red" href="tel:0868931691">Gọi Prova: 0868.93.16.91</a>
+      <a class="btn btn-ghost" href="/">Về trang sản phẩm</a>
+      <p class="note">Cần đổi màu / giờ giao? Gọi hotline — đừng đặt form lần 2 để tránh trùng đơn.</p>
     </div>
-
-    <p class="text-center text-xs text-gray-400 mt-8">
-      PROVA – PLAY TO WIN · <a href="https://provasport.vn" class="hover:text-prova-red">provasport.vn</a>
-    </p>
   </main>
 
+  <footer class="wrap">
+    PROVA – PLAY TO WIN · <a href="https://provasport.vn">provasport.vn</a>
+  </footer>
+
   <script>
-    (function () {
-      var sub = document.getElementById('ty-sub');
-      if (!sub) return;
-      var name = window.__provaLeadName;
-      var color = window.__provaLeadColor;
-      if (name) {
-        sub.innerHTML = 'Cảm ơn <strong class="text-prova-dark">' + String(name).replace(/[<>&]/g, '') +
-          '</strong> đã chọn <strong class="text-prova-dark">Prova Ultimate 3.5</strong>' +
-          (color ? ' · màu <strong class="text-prova-dark">' + String(color).replace(/[<>&]/g, '') + '</strong>' : '') + '.';
-      }
+    (function(){
+      var sub=document.getElementById('ty-sub');
+      if(!sub)return;
+      var name=window.__provaLeadName,color=window.__provaLeadColor;
+      if(!name)return;
+      function esc(s){return String(s).replace(/[<>&]/g,'');}
+      sub.innerHTML='Cảm ơn <strong>'+esc(name)+'</strong> đã chọn <strong>Prova Ultimate 3.5</strong>'+(color?' · màu <strong>'+esc(color)+'</strong>':'')+'.';
     })();
   </script>
 </body>

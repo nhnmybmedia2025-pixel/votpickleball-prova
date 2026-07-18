@@ -11,6 +11,11 @@
   <meta property="og:image" content="https://votpickleball-prova.pages.dev/assets/hero-banner.jpg">
   <meta property="og:url" content="https://votpickleball-prova.pages.dev/">
   <meta name="theme-color" content="#E30613">
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="/assets/hero-banner.jpg?v=d" fetchpriority="high">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -29,12 +34,11 @@
       }
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="/assets/tracking-config.js?v=d"></script>
-  <script src="/assets/meta-pixel.js?v=d"></script>
+  <script src="/assets/tracking-config.js?v=f" defer></script>
+  <script src="/assets/meta-pixel.js?v=f" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -421,7 +425,7 @@
             id="product-video"
             controls
             playsinline
-            preload="metadata"
+            preload="none"
             poster="/assets/video-poster.jpg?v=d"
             title="Video giới thiệu Prova Ultimate 3.5">
             <source src="/assets/prova-intro.mp4?v=d" type="video/mp4">
@@ -861,7 +865,8 @@
           body: JSON.stringify(payload)
         });
         try { sessionStorage.setItem('prova_lead', JSON.stringify({ name: name, phone: phone, color: color, t: Date.now() })); } catch (x) {}
-        location.href = 'thank-you.html' + (location.search || '');
+        // Dùng .html để tránh redirect loop Pretty URL trên một số setup
+        location.href = '/thank-you.html' + (location.search || '');
       } catch (err) {
         setMsg('Lỗi gửi. Gọi 0868.93.16.91', 'err');
         submitBtn.disabled = false;
