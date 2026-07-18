@@ -1,10 +1,9 @@
 /**
- * Prova Landing – Tracking config
+ * Prova Landing – Tracking config (public only, no secrets)
  */
 window.PROVA_TRACKING = {
-  /** Browser Pixel (PageView / Lead trên thank-you) */
   META_PIXEL_ID: '4340331656281072',
-  /** Dataset CRM / CAPI (Events Manager) – dùng server-side Apps Script */
   META_DATASET_ID: '1700938823637870',
-  TIKTOK_PIXEL_ID: ''
+  /** TikTok Pixel ID */
+  TIKTOK_PIXEL_ID: 'D9DSLURC77U79CKF57FG'
 };

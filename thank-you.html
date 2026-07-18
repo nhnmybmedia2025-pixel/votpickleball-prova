@@ -60,7 +60,7 @@
     })();
   </script>
 
-  <!-- Meta Pixel + Lead (inline, nhẹ) -->
+  <!-- Meta Pixel + Lead (inline) -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -73,16 +73,44 @@
     fbq('track','PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=4340331656281072&ev=PageView&noscript=1"/></noscript>
+
+  <!-- TikTok Pixel + SubmitForm (inline) -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+      ttq.load('D9DSLURC77U79CKF57FG');
+      ttq.page();
+    }(window, document, 'ttq');
+  </script>
   <script>
     (function(){
-      function fire(){
-        if(typeof fbq!=='function'){setTimeout(fire,120);return;}
-        try{if(sessionStorage.getItem('prova_lead_fired')==='1')return;sessionStorage.setItem('prova_lead_fired','1');}catch(e){}
-        fbq('track','Lead',{content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000});
+      var fired=false;
+      function fireConversions(){
+        if(fired)return;
+        try{if(sessionStorage.getItem('prova_lead_fired')==='1'){fired=true;return;}sessionStorage.setItem('prova_lead_fired','1');}catch(e){}
+        fired=true;
+        // Meta Lead
+        if(typeof fbq==='function'){
+          fbq('track','Lead',{content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000});
+        }
+        // TikTok SubmitForm (chuyển đổi form)
+        if(window.ttq&&typeof ttq.track==='function'){
+          ttq.track('SubmitForm',{
+            contents:[{content_id:'prova-ultimate-3.5',content_type:'product',content_name:'Prova Ultimate 3.5'}],
+            value:1060000,
+            currency:'VND'
+          });
+        }
         try{sessionStorage.removeItem('prova_lead');}catch(e2){}
       }
-      fire();
-      window.addEventListener('load',function(){setTimeout(fire,80);});
+      function tryFire(){
+        var metaReady=typeof fbq==='function';
+        var ttReady=window.ttq&&typeof ttq.track==='function';
+        if(metaReady||ttReady){fireConversions();return;}
+        setTimeout(tryFire,150);
+      }
+      tryFire();
+      window.addEventListener('load',function(){setTimeout(tryFire,100);setTimeout(fireConversions,800);});
     })();
   </script>
 </head>
