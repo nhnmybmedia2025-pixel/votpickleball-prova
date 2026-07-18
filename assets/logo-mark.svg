@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" role="img" aria-label="Prova">
+  <!-- Monogram P trong khung tròn – bám logo thương hiệu Prova Sport -->
+  <circle cx="40" cy="40" r="36" stroke="#E30613" stroke-width="4.5" fill="none"/>
+  <!-- Thân P -->
+  <path d="M28 58V22h16.5c9.8 0 16.2 5.4 16.2 13.6 0 8.4-6.6 13.9-16.8 13.9H36.2V58H28zm8.2-17.5h7.5c4.3 0 7-2.2 7-5.7s-2.6-5.5-7-5.5h-7.5v11.2z" fill="#E30613"/>
+</svg>
