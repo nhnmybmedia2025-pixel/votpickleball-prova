@@ -22,10 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Be Vietnam Pro', system-ui, sans-serif; }
-    .step {
-      display: flex; gap: 12px; text-align: left;
-      padding: 12px 0; border-bottom: 1px solid #F3F4F6;
-    }
+    .step { display: flex; gap: 12px; text-align: left; padding: 12px 0; border-bottom: 1px solid #F3F4F6; }
     .step:last-child { border-bottom: 0; }
     .step-n {
       width: 28px; height: 28px; border-radius: 9999px; flex-shrink: 0;
@@ -34,6 +31,7 @@
     }
   </style>
 
+  <!-- Advanced Matching từ session (trước pixel) -->
   <script>
     (function () {
       try {
@@ -54,12 +52,34 @@
       } catch (e) {}
     })();
   </script>
-  <script src="/assets/tracking-config.js?v=e"></script>
-  <script src="/assets/meta-pixel.js?v=e"></script>
+
+  <!-- Meta Pixel: INLINE (bắt buộc trên thank-you – không phụ thuộc file ngoài) -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    var _am = window.PROVA_PIXEL_USER || {};
+    var _init = {};
+    if (_am.ph) _init.ph = _am.ph;
+    if (_am.fn) _init.fn = _am.fn;
+    if (_am.ln) _init.ln = _am.ln;
+    if (Object.keys(_init).length) {
+      fbq('init', '4340331656281072', _init);
+    } else {
+      fbq('init', '4340331656281072');
+    }
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" alt=""
+    src="https://www.facebook.com/tr?id=4340331656281072&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Event Lead = 1 chuyển đổi ads -->
   <script>
     (function () {
       function fireLead() {
-        if (typeof fbq !== 'function') { setTimeout(fireLead, 200); return; }
+        if (typeof fbq !== 'function') { setTimeout(fireLead, 150); return; }
         try {
           if (sessionStorage.getItem('prova_lead_fired') === '1') return;
           sessionStorage.setItem('prova_lead_fired', '1');
@@ -72,20 +92,17 @@
         });
         try { sessionStorage.removeItem('prova_lead'); } catch (e2) {}
       }
-      if (document.readyState === 'complete') fireLead();
-      else window.addEventListener('load', function () { setTimeout(fireLead, 300); });
+      // Fire ASAP + backup on load
+      fireLead();
+      window.addEventListener('load', function () { setTimeout(fireLead, 100); });
     })();
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" alt=""
-         src="https://www.facebook.com/tr?id=4340331656281072&ev=PageView&noscript=1" />
-  </noscript>
 </head>
 <body class="bg-gray-50 min-h-screen antialiased">
 
   <header class="bg-white border-b border-gray-100">
     <div class="max-w-lg mx-auto px-4 h-14 flex items-center gap-2.5">
-      <img src="/assets/logo-mark.svg?v=e" alt="Prova" width="36" height="36" class="w-9 h-9">
+      <img src="/assets/logo-mark.svg?v=f" alt="Prova" width="36" height="36" class="w-9 h-9">
       <div class="leading-none">
         <div class="font-black text-lg tracking-tight text-prova-dark">PROVA</div>
         <div class="text-[10px] font-semibold tracking-[0.14em] text-prova-red uppercase">Sport</div>
@@ -110,7 +127,6 @@
         Giữ máy giúp shop nhé!
       </p>
 
-      <!-- Next steps – giảm lo lắng -->
       <div class="bg-gray-50 rounded-2xl px-4 py-2 mb-6 text-left">
         <p class="text-xs font-bold text-gray-500 uppercase tracking-wide pt-2 pb-1">Bước tiếp theo</p>
         <div class="step">
@@ -141,14 +157,14 @@
            class="inline-flex items-center justify-center gap-2 h-12 px-6 bg-prova-red hover:bg-red-700 text-white font-bold rounded-full text-sm">
           <i class="fas fa-phone"></i> Gọi Prova: 0868.93.16.91
         </a>
-        <a href="https://votpickleball-prova.pages.dev/"
+        <a href="/"
            class="inline-flex items-center justify-center gap-2 h-12 px-6 border border-gray-200 hover:bg-gray-50 text-prova-dark font-semibold rounded-full text-sm">
           Về trang sản phẩm
         </a>
       </div>
 
       <p class="text-[11px] text-gray-400 mt-4 leading-relaxed">
-        Cần đổi màu / giờ giao? Gọi ngay hotline — đừng đặt form lần 2 để tránh trùng đơn.
+        Cần đổi màu / giờ giao? Gọi hotline — đừng đặt form lần 2 để tránh trùng đơn.
       </p>
     </div>
 
@@ -164,7 +180,7 @@
       var name = window.__provaLeadName;
       var color = window.__provaLeadColor;
       if (name) {
-        sub.innerHTML = 'Cảm ơn <strong class="text-prova-dark">' + name.replace(/[<>&]/g, '') +
+        sub.innerHTML = 'Cảm ơn <strong class="text-prova-dark">' + String(name).replace(/[<>&]/g, '') +
           '</strong> đã chọn <strong class="text-prova-dark">Prova Ultimate 3.5</strong>' +
           (color ? ' · màu <strong class="text-prova-dark">' + String(color).replace(/[<>&]/g, '') + '</strong>' : '') + '.';
       }
