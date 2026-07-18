@@ -120,43 +120,41 @@ function sendTelegramOrder_(data, timeStr) {
   var src = data.utm_source || 'trực tiếp';
   var camp = data.utm_campaign || '';
 
+  // Plain text (tránh lỗi parse Markdown)
   var lines = [
-    '🏓 *ĐƠN MỚI – Prova Ultimate 3.5*',
+    '🏓 ĐƠN MỚI – Prova Ultimate 3.5',
     '',
-    '⏰ ' + escapeMd_(timeStr || ''),
-    '👤 ' + escapeMd_(name),
-    '📱 `' + escapeMd_(phone) + '`',
-    '🎨 Màu: ' + escapeMd_(color),
-    '📍 ' + escapeMd_(address),
+    '⏰ ' + (timeStr || ''),
+    '👤 ' + name,
+    '📱 ' + phone,
+    '🎨 Màu: ' + color,
+    '📍 ' + address,
     '',
-    '📣 Nguồn: ' + escapeMd_(src) + (camp ? ' / ' + escapeMd_(camp) : ''),
+    '📣 Nguồn: ' + src + (camp ? ' / ' + camp : ''),
     '',
-    '☎️ Gọi ngay: ' + escapeMd_(HOTLINE)
+    '☎️ Gọi ngay: ' + HOTLINE
   ];
 
-  return sendTelegramText_(lines.join('\n'), true);
+  return sendTelegramText_(lines.join('\n'));
 }
 
-function sendTelegramText_(text, useMarkdown) {
+function sendTelegramText_(text) {
   var props = PropertiesService.getScriptProperties();
-  var token = props.getProperty('TELEGRAM_BOT_TOKEN');
-  var chatId = props.getProperty('TELEGRAM_CHAT_ID');
+  var token = (props.getProperty('TELEGRAM_BOT_TOKEN') || '').trim();
+  var chatId = (props.getProperty('TELEGRAM_CHAT_ID') || '').trim();
 
   if (!token || !chatId) {
     return {
       ok: false,
-      error: 'Chưa set TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID trong Script properties. Xem HUONG-DAN-TELEGRAM.md'
+      error: 'Chưa set TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID trong Script properties.'
     };
   }
 
   var payload = {
     chat_id: chatId,
-    text: text,
+    text: String(text).substring(0, 4000),
     disable_web_page_preview: true
   };
-  if (useMarkdown) {
-    payload.parse_mode = 'Markdown';
-  }
 
   var url = 'https://api.telegram.org/bot' + token + '/sendMessage';
   var res = UrlFetchApp.fetch(url, {
@@ -171,10 +169,6 @@ function sendTelegramText_(text, useMarkdown) {
   console.log('Telegram HTTP ' + code + ': ' + body);
 
   return { ok: code >= 200 && code < 300, http: code, body: body };
-}
-
-function escapeMd_(s) {
-  return String(s || '').replace(/([_*`\[])/g, '\\$1');
 }
 
 // ─── Google Sheet ───────────────────────────────────────────
