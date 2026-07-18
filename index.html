@@ -31,6 +31,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Meta Pixel: PageView trên landing (Lead chỉ bắn ở thank-you.html) -->
+    <script src="assets/tracking-config.js"></script>
+    <script src="assets/meta-pixel.js"></script>
     <style>
         body {
             font-family: 'Be Vietnam Pro', system-ui, sans-serif;
@@ -538,42 +541,11 @@
         </div>
     </footer>
 
-    <!--
-      PIXELS (tuỳ chọn – dán ID pixel ads vào đây)
-      Meta: thay YOUR_META_PIXEL_ID
-      TikTok: thay YOUR_TIKTOK_PIXEL_ID
-    -->
-    <!--
-    <script>
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'YOUR_META_PIXEL_ID');
-      fbq('track', 'PageView');
-    </script>
-    <script>
-      !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
-      ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
-      ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-      for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
-      ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
-      ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;
-      ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=r;ttq._t=ttq._t||{};ttq._t[e]=+new Date;ttq._o=ttq._o||{};ttq._o[e]=n||{};
-      n=d.createElement("script");n.type="text/javascript";n.async=!0;n.src=r+"?sdkid="+e+"&lib="+t;
-      e=d.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-      ttq.load('YOUR_TIKTOK_PIXEL_ID'); ttq.page();
-      }(window,document,'ttq');
-    </script>
-    -->
-
     <script>
     (function () {
       /**
-       * Dán URL Web App Google Apps Script vào đây
-       * (Deploy → New deployment → Web app → Copy URL)
-       * Hướng dẫn chi tiết: HUONG-DAN-GOOGLE-SHEET.md
+       * Google Apps Script Web App → Google Sheet
+       * Lead Facebook chỉ bắn trên thank-you.html (sau redirect)
        */
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOUjv7qGAfN5oLFllr3NQs_hNaHs-zF0wYrawzrU1BQBfbVhbiB1PxdsB7Ip-0uYFoJA/exec';
 
@@ -598,19 +570,6 @@
         );
       }
 
-      function fireAdPixels() {
-        try {
-          if (typeof fbq === 'function') {
-            fbq('track', 'Lead', { content_name: 'Prova Ultimate 3.5' });
-          }
-        } catch (e) {}
-        try {
-          if (window.ttq && typeof ttq.track === 'function') {
-            ttq.track('SubmitForm', { content_name: 'Prova Ultimate 3.5' });
-          }
-        } catch (e) {}
-      }
-
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
@@ -631,7 +590,6 @@
 
         if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.indexOf('PASTE_YOUR') === 0) {
           setMessage('Chưa cấu hình Google Sheet. Liên hệ shop hoặc gọi 0868.93.16.91.', 'err');
-          console.error('Chưa dán GOOGLE_SCRIPT_URL. Xem HUONG-DAN-GOOGLE-SHEET.md');
           return;
         }
 
@@ -655,7 +613,6 @@
         setMessage('Đang gửi đơn hàng...', '');
 
         try {
-          // text/plain tránh preflight CORS với Google Apps Script
           await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -663,14 +620,13 @@
             body: JSON.stringify(payload)
           });
 
-          // no-cors không đọc được response → coi như đã gửi thành công
-          form.reset();
-          setMessage('Đặt hàng thành công! Prova Sport sẽ gọi xác nhận trong ít phút.', 'ok');
-          fireAdPixels();
+          // Chuyển trang cảm ơn → Facebook bắn event Lead (1 chuyển đổi)
+          // Giữ UTM/fbclid trên URL thank-you để attribution tốt hơn
+          var qs = window.location.search || '';
+          window.location.href = 'thank-you.html' + qs;
         } catch (err) {
           console.error(err);
           setMessage('Gửi không thành công. Vui lòng gọi hotline 0868.93.16.91.', 'err');
-        } finally {
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel;
         }

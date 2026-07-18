@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cảm ơn bạn đã đặt hàng – Prova Sport</title>
+    <meta name="description" content="Đặt hàng Prova Ultimate 3.5 thành công. Prova Sport sẽ liên hệ xác nhận sớm.">
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        prova: {
+                            red: '#E30613',
+                            dark: '#0B0B0B',
+                            gold: '#F5A623',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Be Vietnam Pro', system-ui, sans-serif; }
+    </style>
+
+    <!-- Meta Pixel base (PageView) -->
+    <script src="assets/tracking-config.js"></script>
+    <script src="assets/meta-pixel.js"></script>
+    <!-- Lead event: chỉ bắn trên trang cảm ơn = 1 chuyển đổi -->
+    <script>
+      (function () {
+        function fireLead() {
+          if (typeof fbq !== 'function') {
+            setTimeout(fireLead, 200);
+            return;
+          }
+          // Tránh bắn Lead 2 lần nếu user reload trang cảm ơn
+          var key = 'prova_lead_fired';
+          try {
+            if (sessionStorage.getItem(key) === '1') return;
+            sessionStorage.setItem(key, '1');
+          } catch (e) {}
+
+          fbq('track', 'Lead', {
+            content_name: 'Prova Ultimate 3.5',
+            content_category: 'Pickleball Paddle',
+            currency: 'VND',
+            value: 1060000
+          });
+        }
+        // Chờ pixel load
+        if (document.readyState === 'complete') fireLead();
+        else window.addEventListener('load', function () { setTimeout(fireLead, 300); });
+      })();
+    </script>
+    <noscript>
+      <!-- Thay YOUR_META_PIXEL_ID nếu dùng noscript (tuỳ chọn) -->
+    </noscript>
+</head>
+<body class="bg-gray-50 min-h-screen antialiased">
+
+    <nav class="bg-white border-b border-gray-100">
+        <div class="max-w-screen-xl mx-auto px-5 py-3.5 flex items-center gap-2.5">
+            <img src="assets/logo-star.svg" alt="Prova Sport" class="w-10 h-10">
+            <div class="leading-tight">
+                <div class="font-black text-lg tracking-tight text-prova-dark">PROVA</div>
+                <div class="text-[10px] font-semibold tracking-[0.2em] text-prova-red uppercase">Sport</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-lg mx-auto px-5 py-16 sm:py-24 text-center">
+        <div class="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-red-500/5 p-8 sm:p-10">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-green-50 text-green-500 flex items-center justify-center">
+                <i class="fas fa-check text-3xl"></i>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black text-prova-dark tracking-tight mb-3">
+                Đặt hàng thành công!
+            </h1>
+            <p class="text-gray-600 mb-2 leading-relaxed">
+                Cảm ơn bạn đã chọn <span class="font-bold text-prova-dark">Prova Ultimate 3.5</span>.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Đội ngũ Prova Sport sẽ gọi xác nhận đơn trong
+                <span class="font-semibold text-prova-dark">5–30 phút</span>
+                (giờ hành chính).
+            </p>
+
+            <div class="bg-gray-50 rounded-2xl p-5 text-left text-sm text-gray-600 space-y-3 mb-8">
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-phone text-prova-red mt-0.5"></i>
+                    <div>
+                        <div class="font-semibold text-prova-dark">Hotline hỗ trợ</div>
+                        <a href="tel:0868931691" class="text-prova-red font-bold hover:underline">0868.93.16.91</a>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-truck text-prova-red mt-0.5"></i>
+                    <div>
+                        <div class="font-semibold text-prova-dark">Giao hàng</div>
+                        <div>2–4 ngày làm việc · Miễn phí ship toàn quốc</div>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <i class="fas fa-shield-alt text-prova-red mt-0.5"></i>
+                    <div>
+                        <div class="font-semibold text-prova-dark">Bảo hành</div>
+                        <div>12 tháng chính hãng · Đổi trả 7 ngày</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="tel:0868931691"
+                   class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-prova-red hover:bg-red-700 text-white font-bold rounded-full transition-all">
+                    <i class="fas fa-phone"></i> Gọi ngay
+                </a>
+                <a href="index.html"
+                   class="inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-gray-200 hover:bg-gray-50 text-prova-dark font-semibold rounded-full transition-all">
+                    Về trang chủ
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-8 text-xs text-gray-400">
+            PROVA – PLAY TO WIN · <a href="https://provasport.vn" class="hover:text-prova-red">provasport.vn</a>
+        </p>
+    </main>
+
+</body>
+</html>
