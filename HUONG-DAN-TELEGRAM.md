@@ -58,16 +58,25 @@ SĐT liên hệ shop: **0868.93.16.91**
 
 ---
 
-## Bước 4 — Test
+## Bước 4 — CẤP QUYỀN UrlFetch (bắt buộc)
 
-### Trong Apps Script
-- Chạy **`testTelegram`** → cho phép quyền URL Fetch  
-- Telegram phải nhận tin: `ĐƠN MỚI – Prova Ultimate 3.5`
+**Triệu chứng:** Sheet có đơn, Telegram không báo.
 
-### Từ website
-1. Điền form trên landing  
-2. Sheet có dòng mới  
-3. Telegram có tin nhắn đơn  
+**Nguyên nhân:** Apps Script chưa được cấp  
+`https://www.googleapis.com/auth/script.external_request`
+
+### Làm đúng thứ tự:
+1. Dropdown function chọn **`testTelegram`**
+2. Bấm **Run** (▶)
+3. **Authorization required** → **Review permissions**
+4. Chọn account Sheet → **Advanced** → **Go to … (unsafe)** → **Allow**
+5. Executions: thành công + Telegram nhận tin
+6. **Deploy** → Manage → ✏️ → **New version** → Deploy  
+   (Me + Anyone)
+
+### Test web
+1. Hard refresh landing → điền form  
+2. Sheet có dòng + Telegram có **ĐƠN MỚI**  
 
 ---
 
