@@ -593,6 +593,11 @@
           return;
         }
 
+        function getCookie(n) {
+          var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)'));
+          return m ? decodeURIComponent(m[1]) : '';
+        }
+
         const payload = {
           name: name,
           phone: phone,
@@ -603,6 +608,8 @@
           utm_campaign: getParam('utm_campaign'),
           fbclid: getParam('fbclid'),
           ttclid: getParam('ttclid'),
+          fbp: getCookie('_fbp'),
+          fbc: getCookie('_fbc'),
           user_agent: navigator.userAgent,
           page: window.location.href
         };
@@ -620,8 +627,17 @@
             body: JSON.stringify(payload)
           });
 
-          // Chuyển trang cảm ơn → Facebook bắn event Lead (1 chuyển đổi)
-          // Giữ UTM/fbclid trên URL thank-you để attribution tốt hơn
+          // Advanced Matching + Lead trên thank-you (browser pixel)
+          try {
+            sessionStorage.setItem('prova_lead', JSON.stringify({
+              name: name,
+              phone: phone,
+              color: color,
+              t: Date.now()
+            }));
+          } catch (errSs) {}
+
+          // Redirect trang cảm ơn (giữ UTM/fbclid)
           var qs = window.location.search || '';
           window.location.href = 'thank-you.html' + qs;
         } catch (err) {

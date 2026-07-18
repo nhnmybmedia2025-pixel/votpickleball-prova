@@ -28,10 +28,27 @@
         body { font-family: 'Be Vietnam Pro', system-ui, sans-serif; }
     </style>
 
-    <!-- Meta Pixel base (PageView) -->
+    <!-- Advanced Matching từ session (set trước khi load pixel) -->
+    <script>
+      (function () {
+        try {
+          var raw = sessionStorage.getItem('prova_lead');
+          if (!raw) return;
+          var lead = JSON.parse(raw);
+          var phone = String(lead.phone || '').replace(/\D/g, '');
+          if (phone.charAt(0) === '0') phone = '84' + phone.slice(1);
+          var parts = String(lead.name || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+          var fn = parts.length ? parts[parts.length - 1] : '';
+          var ln = parts.length > 1 ? parts.slice(0, -1).join(' ') : '';
+          window.PROVA_PIXEL_USER = {};
+          if (phone) window.PROVA_PIXEL_USER.ph = phone;
+          if (fn) window.PROVA_PIXEL_USER.fn = fn;
+          if (ln) window.PROVA_PIXEL_USER.ln = ln;
+        } catch (e) {}
+      })();
+    </script>
     <script src="assets/tracking-config.js"></script>
     <script src="assets/meta-pixel.js"></script>
-    <!-- Lead event: chỉ bắn trên trang cảm ơn = 1 chuyển đổi -->
     <script>
       (function () {
         function fireLead() {
@@ -39,7 +56,6 @@
             setTimeout(fireLead, 200);
             return;
           }
-          // Tránh bắn Lead 2 lần nếu user reload trang cảm ơn
           var key = 'prova_lead_fired';
           try {
             if (sessionStorage.getItem(key) === '1') return;
@@ -52,14 +68,16 @@
             currency: 'VND',
             value: 1060000
           });
+
+          try { sessionStorage.removeItem('prova_lead'); } catch (e2) {}
         }
-        // Chờ pixel load
         if (document.readyState === 'complete') fireLead();
         else window.addEventListener('load', function () { setTimeout(fireLead, 300); });
       })();
     </script>
     <noscript>
-      <!-- Thay YOUR_META_PIXEL_ID nếu dùng noscript (tuỳ chọn) -->
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=4340331656281072&ev=PageView&noscript=1" alt="" />
     </noscript>
 </head>
 <body class="bg-gray-50 min-h-screen antialiased">

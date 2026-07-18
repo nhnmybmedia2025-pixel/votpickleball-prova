@@ -1,6 +1,6 @@
 /**
  * Load Meta Pixel + PageView
- * Gọi fbq('track', 'Lead') trên thank-you.html
+ * Advanced Matching: set window.PROVA_PIXEL_USER = { ph, fn, ln } trước khi load (tuỳ chọn)
  */
 (function () {
   var cfg = window.PROVA_TRACKING || {};
@@ -27,6 +27,17 @@
     s.parentNode.insertBefore(t, s);
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', String(id));
+  var advanced = window.PROVA_PIXEL_USER || {};
+  var initPayload = {};
+  if (advanced.ph) initPayload.ph = advanced.ph;
+  if (advanced.fn) initPayload.fn = advanced.fn;
+  if (advanced.ln) initPayload.ln = advanced.ln;
+  if (advanced.em) initPayload.em = advanced.em;
+
+  if (Object.keys(initPayload).length) {
+    fbq('init', String(id), initPayload);
+  } else {
+    fbq('init', String(id));
+  }
   fbq('track', 'PageView');
 })();
