@@ -134,6 +134,46 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* Video product showcase */
+    .video-shell {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #0B0B0B;
+      box-shadow: 0 16px 48px rgba(11,11,11,0.18);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .video-shell video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: min(70vh, 640px);
+      object-fit: contain;
+      background: #0B0B0B;
+      vertical-align: middle;
+    }
+    @media (min-width: 768px) {
+      .video-shell { border-radius: 24px; }
+      .video-shell video { max-height: 560px; }
+    }
+    .video-play-hint {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,.35), transparent 45%);
+      opacity: 1; transition: opacity .25s;
+    }
+    .video-shell.is-playing .video-play-hint { opacity: 0; }
+    .video-play-btn {
+      width: 72px; height: 72px; border-radius: 9999px;
+      background: #E30613; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; box-shadow: 0 12px 32px rgba(227,6,19,.45);
+    }
+    @media (min-width: 640px) {
+      .video-play-btn { width: 84px; height: 84px; font-size: 30px; }
+    }
+
     /* Equal height gallery cards on desktop */
     .gallery-grid {
       display: grid;
@@ -180,6 +220,7 @@
       </a>
       <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-600">
         <a href="#cong-nghe" class="hover:text-prova-red transition">Công nghệ</a>
+        <a href="#video" class="hover:text-prova-red transition">Video</a>
         <a href="#bo-suu-tap" class="hover:text-prova-red transition">Bộ sưu tập</a>
         <a href="#combo" class="hover:text-prova-red transition">Combo quà</a>
         <a href="#gia" class="hover:text-prova-red transition">Giá</a>
@@ -318,6 +359,51 @@
           <h3 class="font-bold text-sm sm:text-base mb-1">Sức mạnh</h3>
           <p class="text-xs sm:text-sm text-white/55 leading-relaxed">Truyền lực smash quyết định.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VIDEO GIỚI THIỆU (sau công nghệ – trước gallery) ========== -->
+  <section id="video" class="bg-white py-12 sm:py-16 md:py-20 border-b border-prova-line">
+    <div class="max-w-site mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+        <p class="section-label mb-2">Xem thực tế</p>
+        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-3">
+          Trải nghiệm <span class="text-prova-red">Prova Ultimate 3.5</span> trong 90 giây
+        </h2>
+        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+          Nhìn rõ form vợt, 5 màu viền và combo quà tặng – tự tin đặt hàng không cần đoán mò.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="video-shell" id="video-shell">
+          <video
+            id="product-video"
+            controls
+            playsinline
+            preload="metadata"
+            poster="/assets/video-poster.jpg?v=d"
+            title="Video giới thiệu Prova Ultimate 3.5">
+            <source src="/assets/prova-intro.mp4?v=d" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ video HTML5.
+          </video>
+          <div class="video-play-hint" id="video-hint" aria-hidden="true">
+            <div class="video-play-btn" aria-hidden="true">
+              <i class="fas fa-play ml-1"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <a href="#form" class="btn-primary h-11 px-6 text-sm w-full sm:w-auto">Đặt hàng sau khi xem</a>
+          <a href="#combo" class="inline-flex items-center justify-center h-11 px-6 text-sm font-semibold text-gray-700 border border-prova-line rounded-full hover:bg-gray-50 w-full sm:w-auto">
+            Xem combo quà tặng
+          </a>
+        </div>
+        <p class="mt-3 text-center text-[11px] text-gray-400">
+          Video ~1.5 phút · Có thể xem với Wi‑Fi hoặc 4G
+        </p>
       </div>
     </div>
   </section>
@@ -606,6 +692,22 @@
 
   <script>
   (function () {
+    /* Video play overlay */
+    var vid = document.getElementById('product-video');
+    var shell = document.getElementById('video-shell');
+    if (vid && shell) {
+      function syncPlay() {
+        shell.classList.toggle('is-playing', !vid.paused && !vid.ended);
+      }
+      vid.addEventListener('play', syncPlay);
+      vid.addEventListener('pause', syncPlay);
+      vid.addEventListener('ended', syncPlay);
+      shell.addEventListener('click', function (e) {
+        if (e.target.closest('video')) return;
+        if (vid.paused) vid.play();
+      });
+    }
+
     var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOUjv7qGAfN5oLFllr3NQs_hNaHs-zF0wYrawzrU1BQBfbVhbiB1PxdsB7Ip-0uYFoJA/exec';
     var form = document.getElementById('order-form');
     var submitBtn = document.getElementById('order-submit');
