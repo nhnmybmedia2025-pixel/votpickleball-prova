@@ -7,6 +7,11 @@
   var id = cfg.GA_MEASUREMENT_ID || 'G-YBRL7V8BTM';
   if (!id || id.indexOf('G-') !== 0) return;
 
+  // Đã config sớm trong <head> → không nạp trùng
+  if (typeof window.gtag === 'function' && window.dataLayer) {
+    return;
+  }
+
   var s = document.createElement('script');
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);

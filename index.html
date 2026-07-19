@@ -11,7 +11,15 @@
   <meta property="og:image" content="https://votpickleball-prova.pages.dev/assets/hero-banner.jpg">
   <meta property="og:url" content="https://votpickleball-prova.pages.dev/">
   <meta name="theme-color" content="#E30613">
-  <!-- Performance: system font first, optional web font async, hero preload -->
+  <!-- Google tag (gtag.js) GA4 – official, early load for stream detection -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRL7V8BTM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YBRL7V8BTM', { send_page_view: true });
+  </script>
+  <!-- Performance: system font first, hero preload -->
   <link rel="preload" as="image" href="/assets/hero-banner.jpg?v=g" fetchpriority="high">
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
   <link rel="dns-prefetch" href="https://connect.facebook.net">
@@ -39,10 +47,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
   <!-- Pixel sau interactive -->
-  <script src="/assets/tracking-config.js?v=i" defer></script>
-  <script src="/assets/meta-pixel.js?v=i" defer></script>
-  <script src="/assets/tiktok-pixel.js?v=i" defer></script>
-  <script src="/assets/ga.js?v=i" defer></script>
+  <script src="/assets/tracking-config.js?v=j" defer></script>
+  <script src="/assets/meta-pixel.js?v=j" defer></script>
+  <script src="/assets/tiktok-pixel.js?v=j" defer></script>
+  <!-- GA4 đã load sớm ở trên; ga.js không load lại nếu gtag đã có -->
+  <script src="/assets/ga.js?v=j" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
