@@ -31,3 +31,4 @@ Gọi: `/landing-ads-funnel` hoặc mô tả “tạo landing ads form sheet tel
 - Thank-you không Tailwind
 - Không `_redirects` (tránh redirect loop)
 - Cache `/assets/*` dài hạn
+- GA4: G-YBRL7V8BTM

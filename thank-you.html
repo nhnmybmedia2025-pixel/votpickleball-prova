@@ -60,6 +60,15 @@
     })();
   </script>
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRL7V8BTM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YBRL7V8BTM');
+  </script>
+
   <!-- Meta Pixel + Lead (inline) -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -84,7 +93,7 @@
   </script>
   <script>
     (function(){
-      var metaDone=false, ttDone=false;
+      var metaDone=false, ttDone=false, gaDone=false;
       function fireMeta(){
         if(metaDone||typeof fbq!=='function')return;
         try{if(sessionStorage.getItem('prova_meta_lead')==='1'){metaDone=true;return;}}catch(e){}
@@ -103,10 +112,26 @@
           currency:'VND'
         });
       }
+      function fireGA(){
+        if(gaDone||typeof gtag!=='function')return;
+        try{if(sessionStorage.getItem('prova_ga_lead')==='1'){gaDone=true;return;}}catch(e){}
+        gaDone=true;
+        try{sessionStorage.setItem('prova_ga_lead','1');}catch(e2){}
+        gtag('event','generate_lead',{
+          currency:'VND',
+          value:1060000,
+          item_name:'Prova Ultimate 3.5'
+        });
+        gtag('event','form_submit',{
+          form_name:'order_form',
+          form_destination:'thank_you'
+        });
+      }
       function tick(){
         fireMeta();
         fireTikTok();
-        if(metaDone&&ttDone){
+        fireGA();
+        if(metaDone&&ttDone&&gaDone){
           try{sessionStorage.removeItem('prova_lead');}catch(e){}
           return;
         }
