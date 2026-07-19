@@ -57,12 +57,17 @@ function doPost(e) {
     try { metaResult = sendMetaCrmLead_(data); }
     catch (metaErr) { metaResult = { ok: false, error: String(metaErr) }; }
 
+    var gaResult = { skipped: true };
+    try { gaResult = sendGa4Lead_(data); }
+    catch (gaErr) { gaResult = { ok: false, error: String(gaErr) }; }
+
     return jsonResponse({
       result: 'success',
       message: 'OK',
       telegram: tgResult,
       tiktok: ttResult,
-      meta: metaResult
+      meta: metaResult,
+      ga4: gaResult
     });
   } catch (err) {
     try { sendTelegramText_('⚠️ Lỗi form Prova: ' + String(err)); } catch (e2) {}
@@ -195,6 +200,69 @@ function getOrCreateSheet_() {
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+// ─── Google Analytics 4 Measurement Protocol (server-side) ──
+
+/**
+ * Gửi generate_lead server-side (không bị adblock chặn).
+ * Script properties:
+ *   GA4_MEASUREMENT_ID = G-YBRL7V8BTM  (optional, default below)
+ *   GA4_API_SECRET     = secret từ GA Admin → Data stream → Measurement Protocol
+ *
+ * Tạo secret: GA4 → Admin → Data streams → prova-pick → Measurement Protocol API secrets → Create
+ */
+function sendGa4Lead_(data) {
+  var props = PropertiesService.getScriptProperties();
+  var measurementId = (props.getProperty('GA4_MEASUREMENT_ID') || 'G-YBRL7V8BTM').trim();
+  var apiSecret = (props.getProperty('GA4_API_SECRET') || '').trim();
+
+  if (!apiSecret) {
+    return { ok: false, error: 'Chưa set GA4_API_SECRET (Admin → Data stream → Measurement Protocol API secrets)' };
+  }
+
+  var clientId = Utilities.getUuid();
+  var payload = {
+    client_id: clientId,
+    events: [{
+      name: 'generate_lead',
+      params: {
+        currency: 'VND',
+        value: SALE_VALUE,
+        item_name: 'Prova Ultimate 3.5',
+        engagement_time_msec: 100,
+        session_id: String(Math.floor(Date.now() / 1000)),
+        page_location: data.page || 'https://votpickleball-prova.pages.dev/thank-you',
+        source: data.utm_source || '(direct)',
+        medium: data.utm_medium || '(none)',
+        campaign: data.utm_campaign || ''
+      }
+    }]
+  };
+
+  var url = 'https://www.google-analytics.com/mp/collect?measurement_id=' +
+    encodeURIComponent(measurementId) + '&api_secret=' + encodeURIComponent(apiSecret);
+
+  var res = UrlFetchApp.fetch(url, {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  });
+
+  var code = res.getResponseCode();
+  // MP returns 204 No Content on success
+  return { ok: code >= 200 && code < 300, http: code, body: res.getContentText() };
+}
+
+function testGa4() {
+  var r = sendGa4Lead_({
+    page: 'https://votpickleball-prova.pages.dev/thank-you',
+    utm_source: 'test',
+    utm_medium: 'apps_script',
+    utm_campaign: 'ga4_mp_test'
+  });
+  Logger.log(JSON.stringify(r));
 }
 
 // ─── TikTok Events API (server-side) ────────────────────────
