@@ -1,0 +1,376 @@
+:root {
+  --bg: #0b1220;
+  --bg2: #121a2b;
+  --card: #162033;
+  --border: #243049;
+  --text: #e8eef9;
+  --muted: #8b9bb8;
+  --accent: #22c55e;
+  --accent2: #3b82f6;
+  --warn: #f59e0b;
+  --err: #ef4444;
+  --radius: 14px;
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: radial-gradient(1200px 600px at 10% -10%, #1a3a2a 0%, transparent 50%),
+    radial-gradient(900px 500px at 100% 0%, #1a2744 0%, transparent 45%),
+    var(--bg);
+  color: var(--text);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Gate */
+#gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.gate-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.gate-card h1 {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+}
+
+.gate-card .sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  line-height: 1.45;
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+input[type="password"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid rgba(34, 197, 94, 0.35);
+  border-color: var(--accent);
+}
+
+button,
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #04140a;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+button.secondary,
+.btn.secondary {
+  background: var(--bg2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.msg {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.msg.error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fecaca;
+}
+
+.msg.warn {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fde68a;
+}
+
+.msg.ok {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #bbf7d0;
+}
+
+#health-line {
+  margin-top: 16px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* App shell */
+#app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.filters .field {
+  margin: 0;
+}
+
+.filters label {
+  margin-bottom: 4px;
+}
+
+.filters input,
+.filters select {
+  margin-bottom: 0;
+}
+
+.filters .actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+}
+
+.card .label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.card .value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.section h2 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.plat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.plat-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.plat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  padding: 3px 0;
+  color: var(--muted);
+}
+
+.plat-row strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+th,
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+td.name {
+  white-space: normal;
+  max-width: 280px;
+  line-height: 1.35;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-facebook {
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+}
+
+.badge-tiktok {
+  background: rgba(244, 114, 182, 0.15);
+  color: #f9a8d4;
+}
+
+.footer-note {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    flex-direction: column;
+  }
+  .card .value {
+    font-size: 1.1rem;
+  }
+}

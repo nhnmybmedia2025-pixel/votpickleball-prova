@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Prova Ads Metrics</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <!-- Login gate -->
+    <div id="gate">
+      <div class="gate-card">
+        <h1>Prova Ads Metrics</h1>
+        <p class="sub">
+          Báo cáo spend Facebook / TikTok cho landing
+          <strong>votpickleball-prova</strong>. Chỉ nội bộ — cần mật khẩu.
+        </p>
+        <form id="form-login">
+          <label for="password">Mật khẩu dashboard</label>
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="APP_PASSWORD trên Cloudflare"
+            required
+          />
+          <button type="submit" style="width: 100%">Đăng nhập</button>
+        </form>
+        <div id="gate-msg" class="msg error hidden"></div>
+        <p id="health-line">Đang kiểm tra API…</p>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="app" class="hidden">
+      <header class="topbar">
+        <div class="brand">
+          <h1>Prova Ads Metrics</h1>
+          <p>
+            Khoảng: <span id="range-label">—</span> ·
+            <a
+              href="https://votpickleball-prova.pages.dev/"
+              target="_blank"
+              rel="noopener"
+              style="color: #86efac"
+              >Landing</a
+            >
+          </p>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="ghost" id="btn-csv">Tải CSV</button>
+          <button type="button" class="ghost" id="btn-logout">Đăng xuất</button>
+        </div>
+      </header>
+
+      <section class="filters">
+        <div class="field">
+          <label for="since">Từ ngày</label>
+          <input id="since" type="date" />
+        </div>
+        <div class="field">
+          <label for="until">Đến ngày</label>
+          <input id="until" type="date" />
+        </div>
+        <div class="field">
+          <label for="platform">Nền tảng</label>
+          <select id="platform">
+            <option value="all">Tất cả</option>
+            <option value="facebook">Facebook</option>
+            <option value="tiktok">TikTok</option>
+          </select>
+        </div>
+        <div class="actions">
+          <div class="btn-row">
+            <button type="button" class="secondary" id="preset-7">7 ngày</button>
+            <button type="button" class="secondary" id="preset-14">14 ngày</button>
+            <button type="button" class="secondary" id="preset-30">30 ngày</button>
+          </div>
+          <button type="button" id="btn-run">Chạy báo cáo</button>
+        </div>
+      </section>
+
+      <div id="app-msg" class="msg hidden" style="margin-bottom: 14px"></div>
+
+      <section class="cards" aria-label="Tổng quan">
+        <div class="card">
+          <div class="label">Spend</div>
+          <div class="value" id="card-spend">—</div>
+        </div>
+        <div class="card">
+          <div class="label">Impressions</div>
+          <div class="value" id="card-impr">—</div>
+        </div>
+        <div class="card">
+          <div class="label">Clicks</div>
+          <div class="value" id="card-clicks">—</div>
+        </div>
+        <div class="card">
+          <div class="label">CTR</div>
+          <div class="value" id="card-ctr">—</div>
+        </div>
+        <div class="card">
+          <div class="label">CPC</div>
+          <div class="value" id="card-cpc">—</div>
+        </div>
+        <div class="card">
+          <div class="label">Leads (pixel)</div>
+          <div class="value" id="card-leads">—</div>
+        </div>
+        <div class="card">
+          <div class="label">CPL pixel</div>
+          <div class="value" id="card-cpl">—</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Theo nền tảng</h2>
+        <div id="platform-cards" class="platform-grid"></div>
+      </section>
+
+      <section class="section">
+        <h2>Theo campaign</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Campaign</th>
+                <th>Spend</th>
+                <th>Impr.</th>
+                <th>Clicks</th>
+                <th>CTR</th>
+                <th>CPC</th>
+                <th>Leads</th>
+              </tr>
+            </thead>
+            <tbody id="campaign-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Chi tiết theo ngày</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ngày</th>
+                <th>Platform</th>
+                <th>Campaign</th>
+                <th>Spend</th>
+                <th>Impr.</th>
+                <th>Clicks</th>
+                <th>Leads</th>
+              </tr>
+            </thead>
+            <tbody id="daily-body"></tbody>
+          </table>
+        </div>
+        <p class="footer-note">
+          Token FB/TikTok chỉ lưu trên Cloudflare (Environment variables), không nằm
+          trong trình duyệt. Leads pixel = 0 vẫn bình thường nếu conversion theo
+          website/thank-you — đối chiếu Google Sheet cho đơn thật.
+        </p>
+      </section>
+    </div>
+
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

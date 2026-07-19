@@ -1,0 +1,10 @@
+# Cloudflare Pages project for Prova Ads Metrics
+# Deploy: connect GitHub repo, Root directory = ads-metrics-web
+# Or: npx wrangler pages deploy . --project-name=prova-ads-metrics
+
+name = "prova-ads-metrics"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."
+
+# Secrets / vars: set in Cloudflare Dashboard or:
+#   npx wrangler pages secret put FB_ACCESS_TOKEN --project-name=prova-ads-metrics
