@@ -104,7 +104,10 @@
         try{if(sessionStorage.getItem('prova_meta_lead')==='1'){metaDone=true;return;}}catch(e){}
         metaDone=true;
         try{sessionStorage.setItem('prova_meta_lead','1');}catch(e2){}
-        fbq('track','Lead',{content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000});
+        var metaParams={content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000};
+        fbq('track','Lead',metaParams);
+        // CompleteRegistration = form đăng ký/đặt hàng thành công (chuẩn Meta)
+        fbq('track','CompleteRegistration',metaParams);
       }
       function fireTikTok(){
         if(ttDone||!(window.ttq&&typeof ttq.track==='function'))return;

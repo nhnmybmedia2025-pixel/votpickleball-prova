@@ -5,7 +5,7 @@
 1. **Ads** → `https://votpickleball-prova.pages.dev/?utm_source=facebook&utm_medium=paid&utm_campaign=...`
 2. **Landing** → xem + điền form (PageView)
 3. **Apps Script** → Sheet + Telegram
-4. **Thank-you** → PageView + Lead
+4. **Thank-you** → PageView + Lead + CompleteRegistration
 
 ## URL quan trọng
 

@@ -11,13 +11,13 @@ Landing: index.html          → Pixel: PageView
     ↓  điền form + gửi
 Google Sheet (lưu lead)
     ↓  redirect
-Thank you: thank-you.html    → Pixel: PageView + Lead  ★ = 1 chuyển đổi
+Thank you: thank-you.html    → Pixel: PageView + Lead + CompleteRegistration  ★
     ↓
-Meta Ads tối ưu sự kiện Lead
+Meta Ads tối ưu Lead hoặc CompleteRegistration
 ```
 
-**Không bắn Lead trên landing** (tránh đếm ảo khi khách chỉ xem trang).  
-**Chỉ bắn Lead trên trang cảm ơn** sau khi form gửi thành công.
+**Không bắn Lead / CompleteRegistration trên landing** (tránh đếm ảo khi khách chỉ xem trang).  
+**Chỉ bắn trên trang cảm ơn** sau khi form gửi thành công.
 
 ---
 
@@ -50,8 +50,8 @@ Commit + push (hoặc nhờ agent) để Cloudflare deploy.
 2. Mở https://votpickleball-prova.pages.dev/  
    → Helper hiện **PageView** (màu xanh)
 3. Điền form test → sang trang cảm ơn  
-   → Helper hiện **PageView** + **Lead**
-4. Events Manager → **Test events** (có thể dán URL / bật test) → thấy Lead realtime
+   → Helper hiện **PageView** + **Lead** + **CompleteRegistration**
+4. Events Manager → **Test events** (có thể dán URL / bật test) → thấy Lead / CompleteRegistration realtime
 
 ---
 
@@ -79,7 +79,7 @@ Events Manager → Settings → **Domains** → thêm `votpickleball-prova.pages
 | Trang | URL | Event |
 |-------|-----|--------|
 | Landing | `/` hoặc `/index.html` | PageView |
-| Cảm ơn | `/thank-you.html` | PageView + **Lead** |
+| Cảm ơn | `/thank-you.html` | PageView + **Lead** + **CompleteRegistration** |
 
 Custom Conversion (tuỳ chọn, nếu không dùng standard Lead):
 - Rule: URL contains `thank-you.html`
