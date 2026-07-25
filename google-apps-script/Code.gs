@@ -265,6 +265,24 @@ function testGa4() {
   Logger.log(JSON.stringify(r));
 }
 
+/**
+ * Test Meta CAPI / CRM Lead.
+ * Trước khi chạy: set META_ACCESS_TOKEN + META_DATASET_ID (thường = Pixel ID).
+ * Tuỳ chọn META_TEST_EVENT_CODE để hiện trong Events Manager → Test events.
+ */
+function testMetaLead() {
+  var r = sendMetaCrmLead_({
+    name: 'Test Meta CRM',
+    phone: '0868931691',
+    color: 'Xanh mint',
+    address: 'Test HCM',
+    fbclid: 'test_fbclid_apps_script',
+    user_agent: 'AppsScript-testMetaLead',
+    page: 'https://votpickleball-prova.pages.dev/thank-you'
+  });
+  Logger.log(JSON.stringify(r));
+}
+
 // ─── TikTok Events API (server-side) ────────────────────────
 
 /**
@@ -362,7 +380,8 @@ function sendTikTokSubmitForm_(data) {
 function sendMetaCrmLead_(data) {
   var props = PropertiesService.getScriptProperties();
   var token = props.getProperty('META_ACCESS_TOKEN');
-  var datasetId = props.getProperty('META_DATASET_ID') || '1700938823637870';
+  // Dataset ID thường = Pixel ID (1032930589212752). Đổi trong Script properties nếu Events Manager hiện ID khác.
+  var datasetId = props.getProperty('META_DATASET_ID') || '1032930589212752';
 
   if (!token) {
     return { ok: false, error: 'Chưa set META_ACCESS_TOKEN (bỏ qua nếu chỉ dùng Telegram)' };
