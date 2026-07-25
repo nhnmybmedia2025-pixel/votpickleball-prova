@@ -14,7 +14,7 @@
 | Landing | https://votpickleball-prova.pages.dev/ |
 | Thank-you | https://votpickleball-prova.pages.dev/thank-you |
 | Web App | `.../AKfycbwSUhqIWt6cl4HH1iCDAhhoJ5eJtYLOS8xqb4rWG8erfimmL3BSy2pkttSSdHHwQE6X3w/exec` |
-| Pixel | `4340331656281072` |
+| Pixel | `1032930589212752` |
 | Telegram chat | `446161379` (@provapickbot) |
 | Hotline | 0868.93.16.91 |
 
