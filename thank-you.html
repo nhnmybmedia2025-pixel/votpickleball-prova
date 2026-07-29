@@ -104,7 +104,7 @@
         try{if(sessionStorage.getItem('prova_meta_lead')==='1'){metaDone=true;return;}}catch(e){}
         metaDone=true;
         try{sessionStorage.setItem('prova_meta_lead','1');}catch(e2){}
-        var metaParams={content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:1060000};
+        var metaParams={content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:990000};
         fbq('track','Lead',metaParams);
         // CompleteRegistration = form đăng ký/đặt hàng thành công (chuẩn Meta)
         fbq('track','CompleteRegistration',metaParams);
@@ -116,7 +116,7 @@
         try{sessionStorage.setItem('prova_tt_submit','1');}catch(e2){}
         ttq.track('SubmitForm',{
           contents:[{content_id:'prova-ultimate-3.5',content_type:'product',content_name:'Prova Ultimate 3.5'}],
-          value:1060000,
+          value:990000,
           currency:'VND'
         });
       }
@@ -127,13 +127,13 @@
         try{sessionStorage.setItem('prova_ga_lead','1');}catch(e2){}
         try{
           if(typeof gtag==='function'){
-            gtag('event','generate_lead',{currency:'VND',value:1060000,item_name:'Prova Ultimate 3.5'});
+            gtag('event','generate_lead',{currency:'VND',value:990000,item_name:'Prova Ultimate 3.5'});
             gtag('event','form_submit',{form_name:'order_form',form_destination:'thank_you'});
           }
         }catch(e3){}
         try{
           if(typeof window.provaGaEvent==='function'){
-            window.provaGaEvent('generate_lead',{epn_currency:'VND',epn_value:'1060000'});
+            window.provaGaEvent('generate_lead',{epn_currency:'VND',epn_value:'990000'});
             window.provaGaEvent('form_submit');
           }
         }catch(e4){}

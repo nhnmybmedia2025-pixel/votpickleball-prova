@@ -15,7 +15,7 @@ var SHEET_NAME = 'DonHang';
 var LEAD_EVENT_SOURCE = 'Prova Landing CRM';
 var HOTLINE = '0868.93.16.91';
 var DEFAULT_TIKTOK_PIXEL = 'D9DSLURC77U79CKF57FG';
-var SALE_VALUE = 1060000;
+var SALE_VALUE = 990000;
 
 function doPost(e) {
   try {
@@ -409,7 +409,7 @@ function sendMetaCrmLead_(data) {
         lead_event_source: LEAD_EVENT_SOURCE,
         content_name: 'Prova Ultimate 3.5',
         currency: 'VND',
-        value: 1060000
+        value: 990000
       },
       user_data: userData
     }]
