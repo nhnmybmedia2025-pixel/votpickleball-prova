@@ -57,16 +57,22 @@
   <script src="/assets/tiktok-pixel.js?v=k" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
     body {
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       color: #0B0B0B;
       background: #fff;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
     img { max-width: 100%; height: auto; display: block; }
+    :focus-visible { outline: 2px solid #E30613; outline-offset: 2px; }
 
-    /* Media frame: ảnh luôn đầy khung, không méo, crop có kiểm soát */
+    /* ── Media frames ── */
     .media {
       position: relative;
       overflow: hidden;
@@ -94,15 +100,20 @@
       background: linear-gradient(90deg, #FFCC00 0%, #FF8A00 42%, #E30613 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
+
+    /* ── CTA system (mobile ads: ≥48px tap) ── */
     .btn-primary {
       display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px;
       background: #E30613; color: #fff; font-weight: 700;
-      border-radius: 9999px; transition: background .2s, transform .15s;
+      border-radius: 9999px; transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 8px 24px rgba(227, 6, 19, 0.28);
     }
     .btn-primary:hover { background: #C00510; }
     .btn-primary:active { transform: scale(0.98); }
     .btn-ghost {
       display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px;
       border: 1.5px solid rgba(255,255,255,.55); color: #fff; font-weight: 600;
       border-radius: 9999px; transition: background .2s;
     }
@@ -113,21 +124,53 @@
       text-transform: uppercase; color: #E30613;
     }
     .section-title {
-      font-weight: 900; letter-spacing: -0.02em; line-height: 1.15;
+      font-weight: 900; letter-spacing: -0.025em; line-height: 1.12;
+    }
+    /* Mobile section rhythm — shorter scroll for FB traffic */
+    .sec { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    @media (min-width: 640px) {
+      .sec { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+    }
+    @media (min-width: 768px) {
+      .sec { padding-top: 4.5rem; padding-bottom: 4.5rem; }
     }
 
-    /* Hero overlay: mobile bottom→top, desktop left→right */
+    /* Hero: darker bottom for text legibility on mobile ads */
     .hero-shade {
-      background: linear-gradient(to top, rgba(11,11,11,.92) 0%, rgba(11,11,11,.55) 45%, rgba(11,11,11,.25) 100%);
+      background:
+        linear-gradient(to top, rgba(11,11,11,.96) 0%, rgba(11,11,11,.72) 38%, rgba(11,11,11,.35) 68%, rgba(11,11,11,.2) 100%);
     }
     @media (min-width: 768px) {
       .hero-shade {
-        background: linear-gradient(105deg, rgba(11,11,11,.9) 0%, rgba(11,11,11,.65) 38%, rgba(11,11,11,.2) 68%, rgba(11,11,11,.12) 100%);
+        background: linear-gradient(105deg, rgba(11,11,11,.92) 0%, rgba(11,11,11,.68) 36%, rgba(11,11,11,.22) 66%, rgba(11,11,11,.1) 100%);
       }
     }
 
+    /* Offer price card */
+    .price-card {
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 14px;
+    }
+    .price-card .sale {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.03em;
+    }
+    .offer-pills {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .offer-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 10px; border-radius: 999px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12);
+      font-size: 11px; font-weight: 600; color: rgba(255,255,255,.88);
+    }
+
     .swatch {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 30px; height: 30px; border-radius: 50%;
       border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.1);
     }
     @media (min-width: 640px) {
@@ -136,8 +179,8 @@
 
     .gift-item {
       display: flex; gap: 12px; align-items: flex-start;
-      padding: 14px 16px; background: #fff; border: 1px solid #E5E7EB;
-      border-radius: 16px;
+      padding: 12px 14px; background: #fff; border: 1px solid #E5E7EB;
+      border-radius: 14px;
     }
     .gift-icon {
       width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
@@ -145,78 +188,105 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* Sticky mobile CTA */
+    /* Sticky mobile CTA — thumb zone */
     .mobile-bar {
-      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-      background: rgba(255,255,255,.97);
-      backdrop-filter: blur(12px);
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: rgba(255,255,255,.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid #E5E7EB;
-      box-shadow: 0 -8px 30px rgba(0,0,0,.06);
+      box-shadow: 0 -10px 36px rgba(0,0,0,.08);
+    }
+    .mobile-bar .save-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 700; color: #059669;
+      background: #ECFDF5; padding: 2px 6px; border-radius: 6px;
+      margin-top: 2px;
     }
 
+    /* Forms: 16px prevents iOS zoom */
     input, select, textarea { font-size: 16px !important; }
     select option { color: #111; }
+    .field-input {
+      width: 100%;
+      border-radius: 16px;
+      background: rgba(255,255,255,.1);
+      border: 1.5px solid rgba(255,255,255,.16);
+      padding: 14px 16px;
+      color: #fff;
+      transition: border-color .15s, background .15s;
+    }
+    .field-input::placeholder { color: rgba(255,255,255,.38); }
+    .field-input:focus {
+      outline: none;
+      border-color: #E30613;
+      background: rgba(255,255,255,.14);
+    }
+    .field-input.is-error { border-color: #f87171; background: rgba(248,113,113,.08); }
 
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Video product showcase */
+    /* Video — mobile 9:16 friendly */
     .video-shell {
       position: relative;
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
       background: #0B0B0B;
-      box-shadow: 0 16px 48px rgba(11,11,11,0.18);
+      box-shadow: 0 16px 48px rgba(11,11,11,0.16);
       border: 1px solid rgba(0,0,0,0.06);
+      max-width: 360px;
+      margin: 0 auto;
     }
     .video-shell video {
       display: block;
       width: 100%;
       height: auto;
       aspect-ratio: 9 / 16;
-      max-height: min(72vh, 640px);
+      max-height: min(68vh, 580px);
       object-fit: contain;
       background: #0B0B0B;
       margin: 0 auto;
     }
     @media (min-width: 768px) {
-      .video-shell { border-radius: 24px; max-width: 380px; margin: 0 auto; }
+      .video-shell { border-radius: 22px; max-width: 380px; }
       .video-shell video { max-height: 640px; }
     }
     .video-play-hint {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
       pointer-events: none;
-      background: linear-gradient(to top, rgba(0,0,0,.35), transparent 45%);
+      background: linear-gradient(to top, rgba(0,0,0,.4), transparent 50%);
       opacity: 1; transition: opacity .25s;
     }
     .video-shell.is-playing .video-play-hint { opacity: 0; }
     .video-play-btn {
-      width: 72px; height: 72px; border-radius: 9999px;
+      width: 68px; height: 68px; border-radius: 9999px;
       background: #E30613; color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 26px; box-shadow: 0 12px 32px rgba(227,6,19,.45);
-    }
-    @media (min-width: 640px) {
-      .video-play-btn { width: 84px; height: 84px; font-size: 30px; }
+      font-size: 24px; box-shadow: 0 12px 32px rgba(227,6,19,.45);
     }
 
-    /* Color chips (mobile-first form) */
+    /* Color chips — larger tap on mobile */
     .color-chip {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      padding: 10px 6px; border-radius: 14px; border: 1.5px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.06); cursor: pointer; transition: border .15s, background .15s;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; min-height: 64px;
+      padding: 10px 4px; border-radius: 14px; border: 1.5px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06); cursor: pointer; transition: border .15s, background .15s, transform .12s;
       -webkit-tap-highlight-color: transparent; user-select: none;
     }
+    .color-chip:active { transform: scale(0.97); }
     .color-chip .dot {
-      width: 22px; height: 22px; border-radius: 50%;
+      width: 24px; height: 24px; border-radius: 50%;
       border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15);
     }
-    .color-chip span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.75); }
+    .color-chip span { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.75); line-height: 1.1; }
     .color-chip.is-active {
-      border-color: #E30613; background: rgba(227,6,19,.18);
+      border-color: #E30613; background: rgba(227,6,19,.2);
+      box-shadow: 0 0 0 1px rgba(227,6,19,.35);
     }
     .color-chip.is-active span { color: #fff; }
+
     .faq-item {
       border: 1px solid #E5E7EB; border-radius: 16px; background: #fff;
       padding: 14px 16px;
@@ -224,18 +294,44 @@
     .faq-item summary {
       font-weight: 700; font-size: 14px; cursor: pointer; list-style: none;
       display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      min-height: 28px;
     }
     .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item[open] summary { color: #E30613; }
     .faq-item p { margin-top: 8px; font-size: 13px; color: #6B7280; line-height: 1.55; }
     .micro-trust {
       display: flex; flex-wrap: wrap; gap: 8px 12px; justify-content: center;
       font-size: 11px; color: rgba(255,255,255,.55);
     }
 
-    /* Equal height gallery cards on desktop */
+    /* Trust strip under hero */
+    .trust-strip {
+      background: #FAFAFA;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .trust-strip-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: #4B5563; white-space: nowrap;
+    }
+
+    /* Checkout card (price + form adjacency) */
+    .checkout-card {
+      border-radius: 20px;
+      border: 1px solid #E5E7EB;
+      background: #fff;
+      box-shadow: 0 12px 40px rgba(11,11,11,.07);
+      overflow: hidden;
+    }
+    .checkout-card .price-row {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding: 16px 18px 14px;
+      background: linear-gradient(180deg, #FFF5F5 0%, #fff 100%);
+      border-bottom: 1px solid #F3F4F6;
+    }
+
     .gallery-grid {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       grid-template-columns: 1fr;
     }
     @media (min-width: 768px) {
@@ -262,137 +358,158 @@
         aspect-ratio: auto;
       }
     }
+
+    /* Skip link a11y */
+    .skip-link {
+      position: absolute; left: -999px; top: 0; z-index: 100;
+      background: #E30613; color: #fff; padding: 10px 16px; font-weight: 700;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
   </style>
 </head>
-<body class="pb-[76px] md:pb-0">
+<body class="pb-[88px] md:pb-0">
+  <a href="#form" class="skip-link">Đặt hàng ngay</a>
 
   <!-- ========== HEADER ========== -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-prova-line">
-    <div class="max-w-site mx-auto px-4 sm:px-6 h-14 sm:h-[64px] flex items-center justify-between gap-3">
-      <a href="#" class="flex items-center gap-2.5 min-w-0">
-        <img src="/assets/logo-mark.svg?v=g" alt="Prova" width="40" height="40" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0">
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-prova-line supports-[backdrop-filter]:bg-white/90">
+    <div class="max-w-site mx-auto px-4 sm:px-6 h-14 sm:h-[60px] flex items-center justify-between gap-3">
+      <a href="#" class="flex items-center gap-2 min-w-0" aria-label="Prova Sport">
+        <img src="/assets/logo-mark.svg?v=g" alt="" width="40" height="40" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0">
         <div class="leading-none">
-          <div class="font-black text-[17px] sm:text-xl tracking-tight">PROVA</div>
+          <div class="font-black text-[16px] sm:text-xl tracking-tight">PROVA</div>
           <div class="text-[9px] sm:text-[10px] font-semibold tracking-[0.14em] text-prova-red uppercase">Sport</div>
         </div>
       </a>
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-600">
-        <a href="#cong-nghe" class="hover:text-prova-red transition">Công nghệ</a>
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-gray-600" aria-label="Menu chính">
         <a href="#video" class="hover:text-prova-red transition">Video</a>
-        <a href="#bo-suu-tap" class="hover:text-prova-red transition">Bộ sưu tập</a>
-        <a href="#combo" class="hover:text-prova-red transition">Combo quà</a>
+        <a href="#combo" class="hover:text-prova-red transition">Combo</a>
+        <a href="#bo-suu-tap" class="hover:text-prova-red transition">Màu sắc</a>
         <a href="#gia" class="hover:text-prova-red transition">Giá</a>
       </nav>
-      <a href="#form" class="btn-primary text-xs sm:text-sm px-4 sm:px-5 h-9 sm:h-10 shrink-0">Đặt hàng</a>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="tel:0868931691" class="hidden sm:inline-flex items-center justify-center h-10 w-10 rounded-full border border-prova-line text-prova-red" aria-label="Gọi hotline">
+          <i class="fas fa-phone text-sm"></i>
+        </a>
+        <a href="#form" class="btn-primary text-xs sm:text-sm px-4 sm:px-5 h-10 min-h-[40px] shadow-none">Đặt hàng</a>
+      </div>
     </div>
   </header>
 
-  <!-- ========== HERO (mobile-first CRO) ========== -->
-  <section class="relative bg-prova-dark text-white overflow-hidden">
-    <div class="relative w-full min-h-[520px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[620px]">
+  <!-- ========== HERO (FB ads mobile CRO) ========== -->
+  <section class="relative bg-prova-dark text-white overflow-hidden" aria-label="Ưu đãi chính">
+    <div class="relative w-full min-h-[min(88vh,620px)] sm:min-h-[520px] md:min-h-[580px] lg:min-h-[600px]">
       <img
         src="/assets/hero-banner.jpg?v=g"
-        alt="Prova Ultimate 3.5 – vợt pickleball và combo quà"
-        class="absolute inset-0 w-full h-full object-cover object-[78%_center] sm:object-[70%_center] md:object-right"
-        width="2000" height="900" fetchpriority="high">
-      <div class="absolute inset-0 hero-shade"></div>
+        alt="Prova Ultimate 3.5 – vợt pickleball Carbon Fiber và combo quà"
+        class="absolute inset-0 w-full h-full object-cover object-[80%_center] sm:object-[72%_center] md:object-right"
+        width="2000" height="900" fetchpriority="high" decoding="async">
+      <div class="absolute inset-0 hero-shade" aria-hidden="true"></div>
 
-      <div class="relative max-w-site mx-auto px-4 sm:px-6 h-full min-h-[520px] sm:min-h-[500px] md:min-h-[580px] lg:min-h-[620px] flex items-end md:items-center py-8 sm:py-12">
-        <div class="w-full max-w-[540px]">
-          <div class="inline-flex items-center gap-2 bg-prova-red text-white text-[11px] sm:text-xs font-bold px-3 py-1.5 rounded-full mb-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-            FLASH SALE · GIẢM 18% · CÒN SUẤT COMBO
+      <div class="relative max-w-site mx-auto px-4 sm:px-6 h-full min-h-[min(88vh,620px)] sm:min-h-[520px] md:min-h-[580px] lg:min-h-[600px] flex items-end md:items-center py-7 sm:py-12 pb-8">
+        <div class="w-full max-w-[520px]">
+          <div class="inline-flex items-center gap-2 bg-prova-red text-white text-[11px] font-bold px-3 py-1.5 rounded-full mb-3 shadow-lg shadow-red-900/30">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse" aria-hidden="true"></span>
+            FLASH SALE · GIẢM 18% · FULL COMBO
           </div>
 
-          <p class="text-white/70 text-[11px] font-semibold tracking-[0.18em] uppercase mb-1.5">Prova Sport · Pickleball</p>
-          <h1 class="font-black tracking-tight leading-[0.95] mb-1">
-            <span class="block text-[38px] sm:text-5xl md:text-6xl text-white">PROVA</span>
-            <span class="block text-[38px] sm:text-5xl md:text-6xl">
+          <p class="text-white/65 text-[11px] font-semibold tracking-[0.16em] uppercase mb-1.5">Prova Sport · Pickleball</p>
+          <h1 class="font-black tracking-tight leading-[0.94] mb-0">
+            <span class="block text-[36px] sm:text-5xl md:text-6xl text-white">PROVA</span>
+            <span class="block text-[36px] sm:text-5xl md:text-6xl">
               <span class="grad-ultimate">ULTIMATE</span>
               <span class="text-white italic"> 3.5</span>
             </span>
           </h1>
 
-          <p class="mt-2.5 text-[15px] sm:text-lg font-bold text-white leading-snug">
-            Vợt “đánh đã” cho người chơi CLB – không cần vợt xịn 3–4 triệu
+          <p class="mt-2.5 text-[15px] sm:text-lg font-bold text-white leading-snug max-w-[22em]">
+            Vợt “đánh đã” cho CLB — không cần vợt 3–4 triệu
           </p>
-          <p class="mt-1.5 text-sm text-white/75 leading-relaxed max-w-md">
-            Carbon Fiber + lõi 16mm: smash đủ lực, dink vẫn chắc.
-            <span class="text-white font-semibold">Mua 1 vợt tặng full set</span> mũ–áo–khăn–bóng–tất–cán–dán viền.
+          <p class="mt-1.5 text-[13px] sm:text-sm text-white/78 leading-relaxed max-w-md">
+            Carbon + lõi 16mm: smash đủ lực, dink chắc tay.
+            <span class="text-white font-semibold">Mua vợt tặng full set</span> mũ · áo · khăn · bóng · tất · cán · dán viền.
           </p>
 
-          <div class="mt-4 flex items-end justify-between gap-3 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md px-4 py-3 max-w-sm">
-            <div>
-              <p class="text-[11px] text-white/55">Giá niêm yết</p>
-              <p class="text-lg line-through text-white/40 font-medium">1.200.000đ</p>
+          <div class="offer-pills mt-3">
+            <span class="offer-pill"><i class="fas fa-truck text-prova-red text-[10px]"></i> Free ship</span>
+            <span class="offer-pill"><i class="fas fa-shield-alt text-prova-red text-[10px]"></i> BH 12 tháng</span>
+            <span class="offer-pill"><i class="fas fa-undo text-prova-red text-[10px]"></i> Đổi 7 ngày</span>
+          </div>
+
+          <div class="price-card mt-4 max-w-sm">
+            <div class="flex items-end justify-between gap-3">
+              <div>
+                <p class="text-[11px] text-white/55 mb-0.5">Giá niêm yết</p>
+                <p class="text-base sm:text-lg line-through text-white/40 font-medium">1.200.000đ</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[11px] text-emerald-400 font-bold mb-0.5">Giá ưu đãi hôm nay</p>
+                <p class="sale text-[30px] sm:text-[34px] font-black text-white leading-none">990.000đ</p>
+              </div>
             </div>
-            <div class="text-right">
-              <p class="text-[11px] text-emerald-400 font-bold">Chỉ còn hôm nay</p>
-              <p class="text-[28px] sm:text-3xl font-black text-white tracking-tight leading-none">990.000đ</p>
-            </div>
+            <p class="mt-2 text-[11px] text-white/50">Tiết kiệm <strong class="text-emerald-400/90">210.000đ</strong> + combo quà kèm theo</p>
           </div>
 
           <div class="mt-4 flex flex-col gap-2.5">
-            <a href="#form" class="btn-primary h-12 px-6 text-[15px] shadow-lg shadow-red-900/30 w-full sm:w-auto sm:self-start">
-              Đặt form 30 giây – Giữ giá 990k
+            <a href="#form" class="btn-primary h-12 px-6 text-[15px] w-full sm:w-auto sm:self-start">
+              Đặt form 30 giây — Giữ giá 990k
             </a>
-            <div class="flex gap-2">
-              <a href="#video" class="btn-ghost h-11 px-4 text-sm flex-1 sm:flex-none">▶ Xem video</a>
-              <a href="tel:0868931691" class="btn-ghost h-11 px-4 text-sm flex-1 sm:flex-none"><i class="fas fa-phone mr-1.5"></i>Gọi ngay</a>
+            <div class="grid grid-cols-2 gap-2 sm:flex sm:gap-2">
+              <a href="#video" class="btn-ghost h-11 px-3 text-sm">▶ Xem video</a>
+              <a href="tel:0868931691" class="btn-ghost h-11 px-3 text-sm"><i class="fas fa-phone mr-1.5" aria-hidden="true"></i>Gọi ngay</a>
             </div>
           </div>
 
-          <p class="mt-3 text-[12px] text-white/65">
-            <i class="fas fa-users text-prova-red mr-1"></i>
-            Đang được chọn bởi người chơi CLB cuối tuần · Free ship · BH 12 tháng
+          <p class="mt-3 text-[12px] text-white/60 leading-snug">
+            <i class="fas fa-users text-prova-red mr-1" aria-hidden="true"></i>
+            Dành cho người chơi CLB cuối tuần · Prova gọi xác nhận — không thanh toán online
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Trust strip -->
-  <div class="border-b border-prova-line bg-gray-50">
-    <div class="max-w-site mx-auto px-4 sm:px-6 py-3 flex gap-5 sm:gap-8 overflow-x-auto hide-scrollbar justify-start sm:justify-center text-xs sm:text-sm text-gray-600 font-medium whitespace-nowrap">
-      <span class="inline-flex items-center gap-1.5"><i class="fas fa-check-circle text-prova-red"></i>Giao 2–4 ngày</span>
-      <span class="inline-flex items-center gap-1.5"><i class="fas fa-check-circle text-prova-red"></i>Đổi trả 7 ngày</span>
-      <span class="inline-flex items-center gap-1.5"><i class="fas fa-check-circle text-prova-red"></i>Combo chính hãng</span>
-      <span class="inline-flex items-center gap-1.5"><i class="fas fa-check-circle text-prova-red"></i>5 màu viền</span>
+  <!-- Trust strip — reduce bounce after ad click -->
+  <div class="trust-strip">
+    <div class="max-w-site mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex gap-4 sm:gap-8 overflow-x-auto hide-scrollbar justify-start sm:justify-center">
+      <span class="trust-strip-item"><i class="fas fa-check-circle text-prova-red text-[13px]"></i>Giao 2–4 ngày</span>
+      <span class="trust-strip-item"><i class="fas fa-check-circle text-prova-red text-[13px]"></i>Đổi 7 ngày</span>
+      <span class="trust-strip-item"><i class="fas fa-check-circle text-prova-red text-[13px]"></i>Combo chính hãng</span>
+      <span class="trust-strip-item"><i class="fas fa-check-circle text-prova-red text-[13px]"></i>5 màu viền</span>
     </div>
   </div>
 
-  <!-- ========== WHY ========== -->
-  <section class="max-w-site mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
-    <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
+  <!-- ========== WHY — 3 điểm chứng minh (scan 5s) ========== -->
+  <section class="max-w-site mx-auto px-4 sm:px-6 sec">
+    <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
       <p class="section-label mb-2">Vì sao chọn Prova</p>
-      <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-3">
-        Vợt đúng – chơi đã, chốt deal dễ
+      <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">
+        Vợt đúng — chơi đã, chốt dễ
       </h2>
       <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
-        Ultimate 3.5 cân bằng lực đánh và cảm giác bóng. Kèm combo quà để bạn ra sân đủ đồ – không phát sinh mua lẻ.
+        Ultimate 3.5 cân bằng lực &amp; cảm giác. Combo quà đủ đồ ra sân — không phát sinh mua lẻ.
       </p>
     </div>
-    <div class="grid sm:grid-cols-3 gap-3 sm:gap-5">
-      <article class="rounded-2xl border border-prova-line bg-white p-5 sm:p-6 shadow-card">
-        <p class="text-prova-red font-black text-2xl mb-2">01</p>
-        <h3 class="font-bold text-base sm:text-lg mb-1.5">Đánh mạnh, vẫn dính bóng</h3>
-        <p class="text-sm text-gray-600 leading-relaxed">Mặt Carbon Fiber phản hồi nhanh – drive/smash đủ lực, dink vẫn chắc tay.</p>
+    <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-4">
+      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
+        <p class="text-prova-red font-black text-xl sm:text-2xl mb-1.5">01</p>
+        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Đánh mạnh, vẫn dính bóng</h3>
+        <p class="text-[13px] sm:text-sm text-gray-600 leading-relaxed">Carbon Fiber — drive/smash đủ lực, dink vẫn chắc tay.</p>
       </article>
-      <article class="rounded-2xl border border-prova-line bg-white p-5 sm:p-6 shadow-card">
-        <p class="text-prova-red font-black text-2xl mb-2">02</p>
-        <h3 class="font-bold text-base sm:text-lg mb-1.5">Ít rung – chơi lâu không mỏi</h3>
-        <p class="text-sm text-gray-600 leading-relaxed">Lõi PP tổ ong 16mm hấp thụ rung, bảo vệ cổ tay khi rally dài.</p>
+      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
+        <p class="text-prova-red font-black text-xl sm:text-2xl mb-1.5">02</p>
+        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Ít rung — chơi lâu không mỏi</h3>
+        <p class="text-[13px] sm:text-sm text-gray-600 leading-relaxed">Lõi PP 16mm hấp thụ rung, êm cổ tay khi rally dài.</p>
       </article>
-      <article class="rounded-2xl border border-prova-line bg-white p-5 sm:p-6 shadow-card">
-        <p class="text-prova-red font-black text-2xl mb-2">03</p>
-        <h3 class="font-bold text-base sm:text-lg mb-1.5">Full set ra sân ngay</h3>
-        <p class="text-sm text-gray-600 leading-relaxed">Mũ, áo, khăn, bóng, tất, cuốn cán, dán viền – đủ phụ kiện trong 1 đơn.</p>
+      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
+        <p class="text-prova-red font-black text-xl sm:text-2xl mb-1.5">03</p>
+        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Full set ra sân ngay</h3>
+        <p class="text-[13px] sm:text-sm text-gray-600 leading-relaxed">Mũ, áo, khăn, bóng, tất, cán, dán viền — 1 đơn là đủ.</p>
       </article>
     </div>
   </section>
 
   <!-- ========== CÔNG NGHỆ ========== -->
-  <section id="cong-nghe" class="bg-prova-dark text-white py-12 sm:py-16 md:py-20">
+  <section id="cong-nghe" class="bg-prova-dark text-white sec">
     <div class="max-w-site mx-auto px-4 sm:px-6">
       <div class="text-center mb-8 sm:mb-10">
         <p class="section-label mb-2">Công nghệ</p>
@@ -424,15 +541,15 @@
   </section>
 
   <!-- ========== VIDEO GIỚI THIỆU (sau công nghệ – trước gallery) ========== -->
-  <section id="video" class="bg-white py-12 sm:py-16 md:py-20 border-b border-prova-line">
+  <section id="video" class="bg-white sec border-b border-prova-line">
     <div class="max-w-site mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+      <div class="text-center max-w-xl mx-auto mb-5 sm:mb-7">
         <p class="section-label mb-2">Xem thực tế</p>
-        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-3">
-          Trải nghiệm <span class="text-prova-red">Prova Ultimate 3.5</span> trong 90 giây
+        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">
+          Nhìn vợt &amp; combo trong <span class="text-prova-red">1 video</span>
         </h2>
-        <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
-          Nhìn rõ form vợt, 5 màu viền và combo quà tặng – tự tin đặt hàng không cần đoán mò.
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Form vợt, màu viền, quà tặng — xem xong đặt form tự tin, không đoán mò.
         </p>
       </div>
 
@@ -444,7 +561,8 @@
             playsinline
             preload="none"
             poster="/assets/video-poster.jpg?v=kb3"
-            title="Video giới thiệu Prova Ultimate 3.5">
+            title="Video giới thiệu Prova Ultimate 3.5"
+            controlslist="nodownload">
             <source src="/assets/prova-intro.mp4?v=kb3" type="video/mp4">
             Trình duyệt của bạn không hỗ trợ video HTML5.
           </video>
@@ -455,14 +573,14 @@
           </div>
         </div>
 
-        <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          <a href="#form" class="btn-primary h-11 px-6 text-sm w-full sm:w-auto">Đặt hàng sau khi xem</a>
-          <a href="#combo" class="inline-flex items-center justify-center h-11 px-6 text-sm font-semibold text-gray-700 border border-prova-line rounded-full hover:bg-gray-50 w-full sm:w-auto">
-            Xem combo quà tặng
+        <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3">
+          <a href="#form" class="btn-primary h-12 px-6 text-sm w-full sm:w-auto">Đặt hàng sau khi xem</a>
+          <a href="#combo" class="inline-flex items-center justify-center h-12 min-h-[48px] px-6 text-sm font-semibold text-gray-700 border border-prova-line rounded-full hover:bg-gray-50 w-full sm:w-auto">
+            Xem combo quà
           </a>
         </div>
-        <p class="mt-3 text-center text-[11px] text-gray-400">
-          Video ~1.5 phút · Có thể xem với Wi‑Fi hoặc 4G
+        <p class="mt-2.5 text-center text-[11px] text-gray-400">
+          Tối ưu xem trên điện thoại · Wi‑Fi hoặc 4G
         </p>
       </div>
     </div>
@@ -675,57 +793,58 @@
     </div>
   </section>
 
-  <!-- ========== PRICE + FORM gộp (giảm scroll mobile) ========== -->
-  <section id="gia" class="bg-gray-50 py-10 sm:py-14 border-t border-prova-line">
-    <div class="max-w-md mx-auto px-4 sm:px-6 text-center mb-6">
+  <!-- ========== PRICE + FORM (một khối chốt đơn — chuẩn ads mobile) ========== -->
+  <section id="gia" class="bg-gray-50 sec border-t border-prova-line">
+    <div class="max-w-md mx-auto px-4 sm:px-6 text-center mb-5">
       <p class="section-label mb-2">Chốt đơn nhanh</p>
       <h2 class="section-title text-2xl sm:text-3xl mb-2">Giữ giá <span class="text-prova-red">990.000đ</span></h2>
-      <p class="text-sm text-gray-600">Giảm 18% + full combo. Điền form – Prova gọi lại trong giờ hành chính.</p>
+      <p class="text-sm text-gray-600 leading-relaxed">Giảm 18% + full combo. Điền form — Prova gọi xác nhận, không cần thanh toán trước.</p>
     </div>
 
-    <div class="max-w-md mx-auto px-4 sm:px-6">
-      <div class="rounded-3xl border border-prova-line bg-white p-5 sm:p-6 shadow-soft mb-4">
-        <div class="flex justify-between items-end mb-3">
+    <div class="max-w-md mx-auto px-4 sm:px-6 mb-6">
+      <div class="checkout-card">
+        <div class="price-row">
           <div>
-            <p class="text-xs text-gray-500">Niêm yết</p>
+            <p class="text-xs text-gray-500 mb-0.5">Niêm yết</p>
             <p class="text-lg line-through text-gray-400 font-medium">1.200.000đ</p>
           </div>
           <div class="text-right">
             <span class="inline-block text-[11px] bg-red-50 text-prova-red font-bold px-2.5 py-1 rounded-full mb-1">−18%</span>
-            <p class="text-3xl font-black text-prova-red tracking-tight">990.000đ</p>
+            <p class="text-[32px] font-black text-prova-red tracking-tight leading-none">990.000đ</p>
           </div>
         </div>
-        <ul class="text-xs text-gray-600 space-y-1.5">
-          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5"></i>Mũ + áo + khăn + bóng + 2 tất + cán + dán viền</li>
-          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5"></i>Free ship · BH 12 tháng · Đổi 7 ngày</li>
+        <ul class="px-4 py-3.5 text-xs text-gray-600 space-y-1.5">
+          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Mũ + áo + khăn + bóng + 2 tất + cán + dán viền</span></li>
+          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Free ship · BH 12 tháng · Đổi 7 ngày</span></li>
+          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Chọn 1/5 màu viền — Prova xác nhận trước khi gửi</span></li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section id="form" class="bg-prova-dark text-white py-10 sm:py-14 md:py-16">
+  <section id="form" class="bg-prova-dark text-white sec" aria-labelledby="form-title">
     <div class="max-w-md mx-auto px-4 sm:px-6">
       <div class="text-center mb-5">
-        <img src="/assets/logo-mark-white.svg?v=g" alt="Prova" width="44" height="44" class="w-11 h-11 mx-auto mb-2.5">
-        <h2 class="section-title text-2xl mb-1">Đặt hàng – 30 giây</h2>
-        <p class="text-sm text-white/55">Không cần thanh toán online · Chỉ cần SĐT để Prova gọi chốt</p>
+        <img src="/assets/logo-mark-white.svg?v=g" alt="" width="44" height="44" class="w-11 h-11 mx-auto mb-2.5">
+        <h2 id="form-title" class="section-title text-2xl mb-1">Đặt hàng — 30 giây</h2>
+        <p class="text-sm text-white/55 leading-relaxed">Không thanh toán online · Chỉ cần SĐT để Prova gọi chốt màu &amp; giao hàng</p>
       </div>
 
       <form id="order-form" class="space-y-3.5" novalidate>
         <div>
-          <label class="block text-xs font-medium text-white/70 mb-1.5">Họ và tên *</label>
-          <input type="text" name="name" required autocomplete="name" placeholder="VD: Nguyễn Minh"
-                 class="w-full rounded-2xl bg-white/10 border border-white/15 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none focus:border-prova-red">
+          <label class="block text-xs font-medium text-white/70 mb-1.5" for="f-name">Họ và tên *</label>
+          <input id="f-name" type="text" name="name" required autocomplete="name" placeholder="VD: Nguyễn Minh"
+                 class="field-input" enterkeyhint="next">
         </div>
         <div>
-          <label class="block text-xs font-medium text-white/70 mb-1.5">Số điện thoại * <span class="text-white/40 font-normal">(bắt buộc)</span></label>
-          <input type="tel" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9\s+.-]{9,15}" placeholder="09xx xxx xxx"
-                 class="w-full rounded-2xl bg-white/10 border border-white/15 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none focus:border-prova-red">
+          <label class="block text-xs font-medium text-white/70 mb-1.5" for="f-phone">Số điện thoại * <span class="text-white/40 font-normal">(để Prova gọi)</span></label>
+          <input id="f-phone" type="tel" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9\s+.-]{9,15}" placeholder="09xx xxx xxx"
+                 class="field-input" enterkeyhint="next">
         </div>
         <div>
-          <label class="block text-xs font-medium text-white/70 mb-2">Chọn màu viền *</label>
+          <span class="block text-xs font-medium text-white/70 mb-2" id="color-label">Chọn màu viền *</span>
           <input type="hidden" name="color" id="color-input" value="Xanh mint">
-          <div class="grid grid-cols-5 gap-2" id="color-chips" role="listbox" aria-label="Màu viền vợt">
+          <div class="grid grid-cols-5 gap-1.5 sm:gap-2" id="color-chips" role="listbox" aria-labelledby="color-label">
             <button type="button" class="color-chip is-active" data-color="Xanh mint" role="option" aria-selected="true">
               <span class="dot" style="background:#2DD4BF"></span><span>Mint</span>
             </button>
@@ -744,19 +863,19 @@
           </div>
         </div>
         <div>
-          <label class="block text-xs font-medium text-white/70 mb-1.5">Địa chỉ nhận hàng *</label>
-          <textarea name="address" required rows="2" placeholder="Số nhà, đường, phường, quận, tỉnh/TP"
-                    class="w-full rounded-2xl bg-white/10 border border-white/15 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none focus:border-prova-red"></textarea>
+          <label class="block text-xs font-medium text-white/70 mb-1.5" for="f-address">Địa chỉ nhận hàng *</label>
+          <textarea id="f-address" name="address" required rows="2" placeholder="Số nhà, đường, phường, quận, tỉnh/TP"
+                    class="field-input resize-none" enterkeyhint="done"></textarea>
         </div>
-        <button type="submit" id="order-submit" class="btn-primary w-full h-12 text-base disabled:opacity-60">
-          Gửi đơn – Chờ Prova gọi xác nhận
+        <button type="submit" id="order-submit" class="btn-primary w-full h-12 text-base disabled:opacity-60 disabled:pointer-events-none">
+          Gửi đơn — Chờ Prova gọi xác nhận
         </button>
         <div class="micro-trust">
-          <span><i class="fas fa-lock mr-1"></i>Bảo mật SĐT</span>
-          <span><i class="fas fa-phone mr-1"></i>0868.93.16.91</span>
-          <span><i class="fas fa-truck mr-1"></i>Free ship</span>
+          <span><i class="fas fa-lock mr-1" aria-hidden="true"></i>Bảo mật SĐT</span>
+          <span><i class="fas fa-phone mr-1" aria-hidden="true"></i>0868.93.16.91</span>
+          <span><i class="fas fa-truck mr-1" aria-hidden="true"></i>Free ship</span>
         </div>
-        <p id="form-message" class="text-sm text-center min-h-[1.25rem]" role="status"></p>
+        <p id="form-message" class="text-sm text-center min-h-[1.25rem]" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
@@ -779,16 +898,17 @@
     <p class="text-center text-[11px] text-white/25 mt-6">© 2026 Prova Sport. Play to Win.</p>
   </footer>
 
-  <!-- Mobile sticky bar -->
-  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 mobile-bar" id="mobile-bar">
+  <!-- Mobile sticky bar — always in thumb zone for FB traffic -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-50 mobile-bar" id="mobile-bar" role="region" aria-label="Đặt hàng nhanh">
     <div class="flex items-center gap-2.5 max-w-lg mx-auto">
-      <div class="min-w-0 shrink-0">
+      <div class="min-w-[72px] shrink-0">
         <p class="text-[10px] text-gray-500 leading-none">Giá hôm nay</p>
-        <p class="text-base font-black text-prova-red leading-tight">990.000đ</p>
+        <p class="text-[15px] font-black text-prova-red leading-tight tabular-nums">990.000đ</p>
+        <span class="save-tag">−210k</span>
       </div>
-      <a href="#form" class="btn-primary flex-1 h-11 text-sm">Đặt form ngay</a>
-      <a href="tel:0868931691" class="h-11 w-11 shrink-0 rounded-full border border-prova-line flex items-center justify-center text-prova-red" aria-label="Gọi hotline">
-        <i class="fas fa-phone"></i>
+      <a href="#form" class="btn-primary flex-1 h-12 min-h-[48px] text-sm shadow-lg shadow-red-900/15">Đặt form ngay</a>
+      <a href="tel:0868931691" class="h-12 w-12 shrink-0 rounded-full border border-prova-line flex items-center justify-center text-prova-red bg-white" aria-label="Gọi hotline 0868.93.16.91">
+        <i class="fas fa-phone" aria-hidden="true"></i>
       </a>
     </div>
   </div>
@@ -853,15 +973,35 @@
       messageEl.className = 'text-sm text-center min-h-[1.25rem] ' + (type === 'err' ? 'text-red-400' : type === 'ok' ? 'text-green-400' : 'text-white/60');
     }
 
+    function clearFieldErrors() {
+      form.querySelectorAll('.field-input').forEach(function (el) {
+        el.classList.remove('is-error');
+      });
+    }
+    function markError(el) {
+      if (el) el.classList.add('is-error');
+    }
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
+      clearFieldErrors();
       var name = (form.name.value || '').trim();
       var phone = (form.phone.value || '').trim();
       var color = (colorInput && colorInput.value) || 'Xanh mint';
       var address = (form.address.value || '').trim();
-      if (!name || !phone || !address) { setMsg('Nhập họ tên, SĐT và địa chỉ nhé.', 'err'); return; }
+      if (!name || !phone || !address) {
+        if (!name) markError(form.name);
+        if (!phone) markError(form.phone);
+        if (!address) markError(form.address);
+        setMsg('Nhập họ tên, SĐT và địa chỉ nhé.', 'err');
+        return;
+      }
       var phoneDigits = phone.replace(/\D/g, '');
-      if (phoneDigits.length < 9 || phoneDigits.length > 11) { setMsg('SĐT chưa đúng (9–11 số).', 'err'); return; }
+      if (phoneDigits.length < 9 || phoneDigits.length > 11) {
+        markError(form.phone);
+        setMsg('SĐT chưa đúng (9–11 số).', 'err');
+        return;
+      }
 
       var payload = {
         name: name, phone: phone, color: color, address: address,
