@@ -1,22 +1,28 @@
 # Prova Ultimate 3.5 — Funnel đã chốt
 
+> **Bộ nhớ hệ thống đầy đủ:** [`SYSTEM.md`](./SYSTEM.md) — đọc đầu mỗi phiên mới.
+
 ## Workflow chuẩn
 
-1. **Ads** → `https://votpickleball-prova.pages.dev/?utm_source=facebook&utm_medium=paid&utm_campaign=...`
-2. **Landing** → xem + điền form (PageView)
-3. **Apps Script** → Sheet + Telegram
-4. **Thank-you** → PageView + Lead + CompleteRegistration
+1. **Ads** → LP-A `/` hoặc LP-B `/b/` + UTM  
+2. **Landing** → xem + form (PageView + ViewContent)  
+3. **Apps Script** → Sheet + Telegram (+ CAPI/Events)  
+4. **Thank-you** → Lead + CompleteRegistration + TikTok SubmitForm  
 
 ## URL quan trọng
 
 | Thành phần | URL |
 |------------|-----|
-| Landing | https://votpickleball-prova.pages.dev/ |
+| LP-A | https://votpickleball-prova.pages.dev/ |
+| LP-B | https://votpickleball-prova.pages.dev/b/ |
 | Thank-you | https://votpickleball-prova.pages.dev/thank-you |
 | Web App | `.../AKfycbwSUhqIWt6cl4HH1iCDAhhoJ5eJtYLOS8xqb4rWG8erfimmL3BSy2pkttSSdHHwQE6X3w/exec` |
-| Pixel | `1032930589212752` |
+| Meta Pixel | `1032930589212752` |
+| TikTok Pixel | `D9DSLURC77U79CKF57FG` |
+| TikTok | https://www.tiktok.com/@votpickleballprova |
 | Telegram chat | `446161379` (@provapickbot) |
 | Hotline | 0868.93.16.91 |
+| Giá sale | **990.000đ** (niêm yết 1.200.000đ) |
 
 ## Skill tái sử dụng
 
