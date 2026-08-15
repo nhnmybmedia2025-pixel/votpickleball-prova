@@ -291,12 +291,12 @@ https://votpickleball-prova.pages.dev/
 
 ## 6. Deliverable triển khai (checklist build)
 
-- [x] Landing mobile CRO hiện tại (hero, sticky, form)  
+- [x] Landing mobile CRO (hero, sticky, form)  
 - [x] Thank-you Lead pixel  
-- [ ] Thank-you: CTA TikTok video (cần link shop)  
-- [ ] Hero: dòng “tiết kiệm 210k” (đã có một phần)  
-- [ ] Optional: chọn gói 1 vợt / 2 vợt  
-- [ ] Optional: Zalo chat  
+- [x] **V3 live:** social proof sớm · video · combo · gallery · specs · so sánh · FAQ · form pack 1/2  
+- [x] Thank-you Path A call / Path B TikTok  
+- [ ] TikTok URL shop chính thức (thay search tạm)  
+- [ ] Zalo chat (phase 2)  
 - [ ] Heatmap / scroll (phase 2)  
 
 ---

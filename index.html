@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Prova Ultimate 3.5 – Vợt Pickleball + Combo quà | Prova Sport</title>
+  <title>Prova Ultimate 3.5 – 990k + Full combo | Prova Sport</title>
+  <meta name="version" content="landing-v3">
   <meta name="description" content="Prova Ultimate 3.5 Carbon Fiber. 5 màu. Mua vợt tặng mũ, khăn, áo, bóng, 2 đôi tất, cuốn cán, dán viền. 990.000đ – giảm 18%.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Prova Ultimate 3.5 – Giảm 18% + Full combo quà">
@@ -287,6 +288,21 @@
     }
     .color-chip.is-active span { color: #fff; }
 
+    .pack-chip {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+      padding: 12px 14px; border-radius: 14px;
+      border: 1.5px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
+      color: #fff; text-align: left; cursor: pointer;
+      transition: border .15s, background .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .pack-chip.is-active {
+      border-color: #E30613;
+      background: rgba(227,6,19,.22);
+      box-shadow: 0 0 0 1px rgba(227,6,19,.35);
+    }
+
     .faq-item {
       border: 1px solid #E5E7EB; border-radius: 16px; background: #fff;
       padding: 14px 16px;
@@ -468,7 +484,7 @@
     </div>
   </section>
 
-  <!-- Trust strip — reduce bounce after ad click -->
+  <!-- Trust strip -->
   <div class="trust-strip">
     <div class="max-w-site mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex gap-4 sm:gap-8 overflow-x-auto hide-scrollbar justify-start sm:justify-center">
       <span class="trust-strip-item"><i class="fas fa-check-circle text-prova-red text-[13px]"></i>Giao 2–4 ngày</span>
@@ -478,69 +494,38 @@
     </div>
   </div>
 
-  <!-- ========== WHY — 3 điểm chứng minh (scan 5s) ========== -->
-  <section class="max-w-site mx-auto px-4 sm:px-6 sec">
-    <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-      <p class="section-label mb-2">Vì sao chọn Prova</p>
-      <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">
-        Vợt đúng — chơi đã, chốt dễ
-      </h2>
-      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
-        Ultimate 3.5 cân bằng lực &amp; cảm giác. Combo quà đủ đồ ra sân — không phát sinh mua lẻ.
-      </p>
-    </div>
-    <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-4">
-      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
-        <p class="text-prova-red font-black text-xl sm:text-2xl mb-1.5">01</p>
-        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Đánh mạnh, vẫn dính bóng</h3>
-        <p class="text-[13px] sm:text-sm text-gray-600 leading-relaxed">Carbon Fiber — drive/smash đủ lực, dink vẫn chắc tay.</p>
-      </article>
-      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
-        <p class="text-prova-red font-black text-xl sm:text-2xl mb-1.5">02</p>
-        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Ít rung — chơi lâu không mỏi</h3>
-        <p class="text-[13px] sm:text-sm text-gray-600 leading-relaxed">Lõi PP 16mm hấp thụ rung, êm cổ tay khi rally dài.</p>
-      </article>
-      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
-        <p class="text-prova-red font-black text-xl sm:text-2xl mb-1.5">03</p>
-        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Full set ra sân ngay</h3>
-        <p class="text-[13px] sm:text-sm text-gray-600 leading-relaxed">Mũ, áo, khăn, bóng, tất, cán, dán viền — 1 đơn là đủ.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ========== CÔNG NGHỆ ========== -->
-  <section id="cong-nghe" class="bg-prova-dark text-white sec">
+  <!-- [3] SOCIAL PROOF — sớm sau hero (V3) -->
+  <section id="reviews" class="bg-prova-dark text-white sec" aria-label="Đánh giá">
     <div class="max-w-site mx-auto px-4 sm:px-6">
-      <div class="text-center mb-8 sm:mb-10">
-        <p class="section-label mb-2">Công nghệ</p>
-        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl">Thiết kế để <span class="grad-ultimate">Play to Win</span></h2>
+      <p class="section-label text-center mb-2 !text-prova-red">Người chơi CLB</p>
+      <h2 class="section-title text-xl sm:text-3xl text-center mb-6">Đang được chọn trên sân</h2>
+      <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-4">
+        <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5 text-sm">
+          <p class="text-amber-400 mb-2 text-xs tracking-wide">★★★★★</p>
+          <p class="text-white/88 leading-relaxed mb-3">“Vợt đầm tay, dink ổn. Combo quà nhiều hơn mình nghĩ — ra sân đủ đồ luôn.”</p>
+          <p class="text-xs text-white/45 font-semibold">— Minh · Q.7 · CLB cuối tuần</p>
+        </blockquote>
+        <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5 text-sm">
+          <p class="text-amber-400 mb-2 text-xs tracking-wide">★★★★★</p>
+          <p class="text-white/88 leading-relaxed mb-3">“Sweet spot rộng hơn vợt entry. Màu mint nhìn pro, smash vẫn kiểm soát được.”</p>
+          <p class="text-xs text-white/45 font-semibold">— Hạnh · Hà Nội</p>
+        </blockquote>
+        <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5 text-sm">
+          <p class="text-amber-400 mb-2 text-xs tracking-wide">★★★★★</p>
+          <p class="text-white/88 leading-relaxed mb-3">“Ship nhanh, tư vấn chọn màu nhiệt tình. 990k + full set là đáng.”</p>
+          <p class="text-xs text-white/45 font-semibold">— Khoa · Đà Nẵng</p>
+        </blockquote>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
-          <i class="fas fa-layer-group text-prova-red text-lg sm:text-xl mb-3"></i>
-          <h3 class="font-bold text-sm sm:text-base mb-1">Carbon Fiber</h3>
-          <p class="text-xs sm:text-sm text-white/55 leading-relaxed">Spin &amp; cảm giác bóng rõ nét.</p>
-        </div>
-        <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
-          <i class="fas fa-border-all text-prova-red text-lg sm:text-xl mb-3"></i>
-          <h3 class="font-bold text-sm sm:text-base mb-1">Lõi PP 16mm</h3>
-          <p class="text-xs sm:text-sm text-white/55 leading-relaxed">Cân bằng power – control.</p>
-        </div>
-        <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
-          <i class="fas fa-bullseye text-prova-red text-lg sm:text-xl mb-3"></i>
-          <h3 class="font-bold text-sm sm:text-base mb-1">Kiểm soát</h3>
-          <p class="text-xs sm:text-sm text-white/55 leading-relaxed">Sweet spot tối ưu dink/drop.</p>
-        </div>
-        <div class="rounded-2xl bg-white/5 border border-white/10 p-4 sm:p-5">
-          <i class="fas fa-bolt text-prova-red text-lg sm:text-xl mb-3"></i>
-          <h3 class="font-bold text-sm sm:text-base mb-1">Sức mạnh</h3>
-          <p class="text-xs sm:text-sm text-white/55 leading-relaxed">Truyền lực smash quyết định.</p>
-        </div>
+      <div class="mt-5 text-center">
+        <a href="https://www.tiktok.com/search?q=prova%20pickleball" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center justify-center gap-2 h-11 px-5 text-sm font-semibold rounded-full border border-white/20 text-white/90 hover:bg-white/10">
+          <i class="fab fa-tiktok" aria-hidden="true"></i> Xem review trên TikTok
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ========== VIDEO GIỚI THIỆU (sau công nghệ – trước gallery) ========== -->
+  <!-- [4] VIDEO -->
   <section id="video" class="bg-white sec border-b border-prova-line">
     <div class="max-w-site mx-auto px-4 sm:px-6">
       <div class="text-center max-w-xl mx-auto mb-5 sm:mb-7">
@@ -549,259 +534,198 @@
           Nhìn vợt &amp; combo trong <span class="text-prova-red">1 video</span>
         </h2>
         <p class="text-sm text-gray-600 leading-relaxed">
-          Form vợt, màu viền, quà tặng — xem xong đặt form tự tin, không đoán mò.
+          Form vợt, màu viền, quà tặng — xem xong đặt form tự tin.
         </p>
       </div>
-
       <div class="max-w-3xl mx-auto">
         <div class="video-shell" id="video-shell">
-          <video
-            id="product-video"
-            controls
-            playsinline
-            preload="none"
-            poster="/assets/video-poster.jpg?v=kb3"
-            title="Video giới thiệu Prova Ultimate 3.5"
-            controlslist="nodownload">
+          <video id="product-video" controls playsinline preload="none"
+            poster="/assets/video-poster.jpg?v=kb3" title="Video Prova Ultimate 3.5" controlslist="nodownload">
             <source src="/assets/prova-intro.mp4?v=kb3" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ video HTML5.
           </video>
           <div class="video-play-hint" id="video-hint" aria-hidden="true">
-            <div class="video-play-btn" aria-hidden="true">
-              <i class="fas fa-play ml-1"></i>
-            </div>
+            <div class="video-play-btn" aria-hidden="true"><i class="fas fa-play ml-1"></i></div>
           </div>
         </div>
-
         <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3">
           <a href="#form" class="btn-primary h-12 px-6 text-sm w-full sm:w-auto">Đặt hàng sau khi xem</a>
-          <a href="#combo" class="inline-flex items-center justify-center h-12 min-h-[48px] px-6 text-sm font-semibold text-gray-700 border border-prova-line rounded-full hover:bg-gray-50 w-full sm:w-auto">
-            Xem combo quà
-          </a>
+          <a href="#combo" class="inline-flex items-center justify-center h-12 min-h-[48px] px-6 text-sm font-semibold text-gray-700 border border-prova-line rounded-full hover:bg-gray-50 w-full sm:w-auto">Combo quà</a>
         </div>
-        <p class="mt-2.5 text-center text-[11px] text-gray-400">
-          Tối ưu xem trên điện thoại · Wi‑Fi hoặc 4G
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- ========== BỘ SƯU TẬP 5 MÀU + GALLERY ========== -->
-  <section id="bo-suu-tap" class="max-w-site mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
-    <div class="mb-6 sm:mb-8 max-w-2xl">
+  <!-- WHY 3 points -->
+  <section class="max-w-site mx-auto px-4 sm:px-6 sec">
+    <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+      <p class="section-label mb-2">Vì sao chọn Prova</p>
+      <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">Vợt đúng — chơi đã, chốt dễ</h2>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-2.5 sm:gap-4">
+      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
+        <p class="text-prova-red font-black text-xl mb-1.5">01</p>
+        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Đánh mạnh, vẫn dính bóng</h3>
+        <p class="text-[13px] text-gray-600 leading-relaxed">Carbon Fiber — drive/smash đủ lực, dink chắc tay.</p>
+      </article>
+      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
+        <p class="text-prova-red font-black text-xl mb-1.5">02</p>
+        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Ít rung — chơi lâu không mỏi</h3>
+        <p class="text-[13px] text-gray-600 leading-relaxed">Lõi PP 16mm hấp thụ rung, êm cổ tay rally dài.</p>
+      </article>
+      <article class="rounded-2xl border border-prova-line bg-white p-4 sm:p-5 shadow-card">
+        <p class="text-prova-red font-black text-xl mb-1.5">03</p>
+        <h3 class="font-bold text-[15px] sm:text-lg mb-1">Full set ra sân ngay</h3>
+        <p class="text-[13px] text-gray-600 leading-relaxed">Mũ, áo, khăn, bóng, tất, cán, dán viền — 1 đơn đủ.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- [5] COMBO -->
+  <section id="combo" class="bg-gray-50 sec">
+    <div class="max-w-site mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-xl mx-auto mb-6 sm:mb-8">
+        <p class="section-label mb-2">Combo quà tặng</p>
+        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">
+          Mua 1 vợt — nhận trọn set <span class="text-prova-red">Prova</span>
+        </h2>
+        <p class="text-sm text-gray-600">Value stacking: đủ đồ ra sân, không phát sinh mua lẻ.</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-5 lg:gap-10 items-start">
+        <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-soft ratio-square sm:ratio-4x3 lg:ratio-square order-2 lg:order-1">
+          <img src="/assets/product-flatlay.jpg?v=g" alt="Combo quà tặng Prova" loading="lazy">
+        </div>
+        <div class="order-1 lg:order-2 space-y-2 sm:space-y-2.5">
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-table-tennis-paddle-ball"></i></span><div><p class="font-bold text-sm sm:text-base">1 × Vợt Ultimate 3.5</p><p class="text-xs text-gray-500 mt-0.5">5 màu: mint · cam · tím · đỏ · vàng</p></div></div>
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-hat-cowboy"></i></span><div><p class="font-bold text-sm sm:text-base">1 × Mũ Prova Sport</p><p class="text-xs text-gray-500 mt-0.5">Logo P chính hãng</p></div></div>
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-shirt"></i></span><div><p class="font-bold text-sm sm:text-base">1 × Áo phông Prova</p><p class="text-xs text-gray-500 mt-0.5">Đồng bộ thương hiệu</p></div></div>
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-bath"></i></span><div><p class="font-bold text-sm sm:text-base">1 × Khăn tắm Prova</p><p class="text-xs text-gray-500 mt-0.5">Thấm hút sau set</p></div></div>
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-baseball"></i></span><div><p class="font-bold text-sm sm:text-base">1 × Hộp bóng Prova</p><p class="text-xs text-gray-500 mt-0.5">Tập / giao đấu ngay</p></div></div>
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-socks"></i></span><div><p class="font-bold text-sm sm:text-base">2 × Đôi tất Prova</p><p class="text-xs text-gray-500 mt-0.5">Đủ 2 buổi chơi</p></div></div>
+          <div class="gift-item"><span class="gift-icon"><i class="fas fa-tape"></i></span><div><p class="font-bold text-sm sm:text-base">Cuốn cán + Dán viền</p><p class="text-xs text-gray-500 mt-0.5">Bám tay &amp; bảo vệ viền</p></div></div>
+          <p class="text-[11px] text-gray-400 pt-1">* Màu phụ kiện có thể đổi theo tồn — màu vợt bạn chọn cố định.</p>
+          <a href="#form" class="btn-primary w-full sm:w-auto h-12 px-6 text-sm mt-2">Chọn màu &amp; đặt form</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- [6] 5 MÀU + GALLERY -->
+  <section id="bo-suu-tap" class="max-w-site mx-auto px-4 sm:px-6 sec">
+    <div class="mb-5 sm:mb-8 max-w-2xl">
       <p class="section-label mb-2">5 màu viền</p>
-      <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">Chọn màu – khẳng định phong cách</h2>
-      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
-        Cùng hiệu suất Ultimate 3.5. Khác biệt ở màu viền – chọn tone bạn ra sân tự tin nhất.
-      </p>
+      <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-2">Chọn màu — ra sân tự tin</h2>
+      <p class="text-sm text-gray-600">Cùng hiệu suất Ultimate 3.5. Khác ở màu viền.</p>
     </div>
-
-    <!-- Color swatches – căn đều 5 cột -->
-    <div class="grid grid-cols-5 gap-2 sm:gap-4 mb-8 sm:mb-10 max-w-lg">
-      <div class="flex flex-col items-center gap-1.5">
-        <span class="swatch" style="background:#2DD4BF"></span>
-        <span class="text-[10px] sm:text-xs font-semibold text-gray-700">Mint</span>
-      </div>
-      <div class="flex flex-col items-center gap-1.5">
-        <span class="swatch" style="background:#F97316"></span>
-        <span class="text-[10px] sm:text-xs font-semibold text-gray-700">Cam</span>
-      </div>
-      <div class="flex flex-col items-center gap-1.5">
-        <span class="swatch" style="background:#C026D3"></span>
-        <span class="text-[10px] sm:text-xs font-semibold text-gray-700">Tím</span>
-      </div>
-      <div class="flex flex-col items-center gap-1.5">
-        <span class="swatch" style="background:#E30613"></span>
-        <span class="text-[10px] sm:text-xs font-semibold text-gray-700">Đỏ</span>
-      </div>
-      <div class="flex flex-col items-center gap-1.5">
-        <span class="swatch" style="background:#EAB308"></span>
-        <span class="text-[10px] sm:text-xs font-semibold text-gray-700">Vàng</span>
-      </div>
+    <div class="grid grid-cols-5 gap-2 sm:gap-4 mb-6 sm:mb-8 max-w-lg">
+      <div class="flex flex-col items-center gap-1.5"><span class="swatch" style="background:#2DD4BF"></span><span class="text-[10px] sm:text-xs font-semibold text-gray-700">Mint</span></div>
+      <div class="flex flex-col items-center gap-1.5"><span class="swatch" style="background:#F97316"></span><span class="text-[10px] sm:text-xs font-semibold text-gray-700">Cam</span></div>
+      <div class="flex flex-col items-center gap-1.5"><span class="swatch" style="background:#C026D3"></span><span class="text-[10px] sm:text-xs font-semibold text-gray-700">Tím</span></div>
+      <div class="flex flex-col items-center gap-1.5"><span class="swatch" style="background:#E30613"></span><span class="text-[10px] sm:text-xs font-semibold text-gray-700">Đỏ</span></div>
+      <div class="flex flex-col items-center gap-1.5"><span class="swatch" style="background:#EAB308"></span><span class="text-[10px] sm:text-xs font-semibold text-gray-700">Vàng</span></div>
     </div>
-
-    <!-- Gallery: mobile stack; desktop 2-col equal height – KHÔNG để lỗ trắng -->
     <div class="gallery-grid">
-      <!-- Ảnh chính: poster sân đêm – full khung -->
       <div class="media gallery-main rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-3x4">
-        <img src="/assets/poster-stadium.jpg?v=g" alt="Prova Ultimate 3.5 – 5 màu trên sân" loading="lazy" style="object-position: center 25%;">
+        <img src="/assets/poster-stadium.jpg?v=g" alt="Prova 5 màu trên sân" loading="lazy" style="object-position: center 25%;">
       </div>
-
       <div class="gallery-side">
         <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-4x3">
-          <img src="/assets/product-flatlay.jpg?v=g" alt="Combo Prova trên sân vàng" loading="lazy" style="object-position: center;">
+          <img src="/assets/product-flatlay.jpg?v=g" alt="Combo Prova" loading="lazy">
         </div>
         <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-4x3">
-          <img src="/assets/lifestyle-model.jpg?v=g" alt="Prova Sport lifestyle" loading="lazy" style="object-position: center 18%;">
+          <img src="/assets/lifestyle-model.jpg?v=g" alt="Lifestyle Prova" loading="lazy" style="object-position: center 18%;">
         </div>
       </div>
     </div>
-
-    <!-- Banner full width dưới gallery -->
-    <div class="mt-3 sm:mt-4 media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-16x9 sm:ratio-banner">
-      <img src="/assets/hero-banner.jpg?v=g" alt="Prova Ultimate 3.5 full lineup" loading="lazy" class="object-[center_center] sm:object-right">
-    </div>
   </section>
 
-  <!-- ========== COMBO ========== -->
-  <section id="combo" class="bg-gray-50 py-12 sm:py-16 md:py-20">
+  <!-- [7] CÔNG NGHỆ + SPECS -->
+  <section id="cong-nghe" class="bg-prova-dark text-white sec">
     <div class="max-w-site mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-xl mx-auto mb-8 sm:mb-10">
-        <p class="section-label mb-2">Combo quà tặng</p>
-        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-3">
-          Mua 1 vợt – nhận trọn set <span class="text-prova-red">Prova</span>
-        </h2>
-        <p class="text-sm sm:text-base text-gray-600">Phụ kiện chính hãng đi kèm – ra sân đủ đồ, tiết kiệm mua lẻ.</p>
+      <div class="text-center mb-6 sm:mb-8">
+        <p class="section-label mb-2">Công nghệ</p>
+        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl">Thiết kế để <span class="grad-ultimate">Play to Win</span></h2>
       </div>
-
-      <div class="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
-        <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-soft ratio-square sm:ratio-4x3 lg:ratio-square order-2 lg:order-1">
-          <img src="/assets/product-flatlay.jpg?v=g" alt="Combo quà tặng Prova đầy đủ" loading="lazy">
-        </div>
-
-        <div class="order-1 lg:order-2 space-y-2.5 sm:space-y-3">
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-table-tennis-paddle-ball"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">1 × Vợt Prova Ultimate 3.5</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Chọn 1/5 màu: mint · cam · tím · đỏ · vàng</p>
-            </div>
-          </div>
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-hat-cowboy"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">1 × Mũ Prova Sport</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Logo P chính hãng</p>
-            </div>
-          </div>
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-shirt"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">1 × Áo phông Prova</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Đồng bộ thương hiệu</p>
-            </div>
-          </div>
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-bath"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">1 × Khăn tắm Prova</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Thấm hút – dùng sau set đấu</p>
-            </div>
-          </div>
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-baseball"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">1 × Hộp bóng Prova</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Tập / giao đấu ngay</p>
-            </div>
-          </div>
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-socks"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">2 × Đôi tất Prova</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Êm chân, đủ 2 buổi chơi</p>
-            </div>
-          </div>
-          <div class="gift-item">
-            <span class="gift-icon"><i class="fas fa-tape"></i></span>
-            <div>
-              <p class="font-bold text-sm sm:text-base">Cuốn cán + Dán viền vợt</p>
-              <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Bám tay &amp; bảo vệ viền</p>
-            </div>
-          </div>
-          <p class="text-[11px] text-gray-400 pt-1">* Màu phụ kiện có thể thay đổi theo tồn kho.</p>
-        </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-8">
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><i class="fas fa-layer-group text-prova-red mb-2"></i><h3 class="font-bold text-sm mb-1">Carbon Fiber</h3><p class="text-xs text-white/55">Spin &amp; cảm giác rõ</p></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><i class="fas fa-border-all text-prova-red mb-2"></i><h3 class="font-bold text-sm mb-1">Lõi PP 16mm</h3><p class="text-xs text-white/55">Power + control</p></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><i class="fas fa-bullseye text-prova-red mb-2"></i><h3 class="font-bold text-sm mb-1">Kiểm soát</h3><p class="text-xs text-white/55">Dink / drop ổn định</p></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><i class="fas fa-bolt text-prova-red mb-2"></i><h3 class="font-bold text-sm mb-1">Sức mạnh</h3><p class="text-xs text-white/55">Smash quyết định</p></div>
+      </div>
+      <div class="rounded-2xl border border-white/10 overflow-hidden text-sm divide-y divide-white/10 bg-white/5 max-w-xl mx-auto">
+        <div class="flex justify-between gap-4 px-4 py-3"><span class="text-white/50">Bề mặt</span><span class="font-bold">Carbon Fiber</span></div>
+        <div class="flex justify-between gap-4 px-4 py-3"><span class="text-white/50">Lõi</span><span class="font-bold">PP tổ ong 16mm</span></div>
+        <div class="flex justify-between gap-4 px-4 py-3"><span class="text-white/50">Trọng lượng</span><span class="font-bold">7.8 – 8.2 oz</span></div>
+        <div class="flex justify-between gap-4 px-4 py-3"><span class="text-white/50">Phong cách</span><span class="font-bold">Power + Control</span></div>
+        <div class="flex justify-between gap-4 px-4 py-3"><span class="text-white/50">Phù hợp</span><span class="font-bold text-right">CLB · trung cấp → nâng</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ========== SPECS ========== -->
-  <section class="max-w-site mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
-    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-      <div class="media rounded-2xl sm:rounded-3xl ring-1 ring-black/5 shadow-card ratio-16x9 lg:ratio-4x3 order-2 lg:order-1">
-        <img src="/assets/hero-banner.jpg?v=g" alt="Thông số Prova Ultimate 3.5" loading="lazy" class="object-right">
-      </div>
-      <div class="order-1 lg:order-2">
-        <p class="section-label mb-2">Thông số kỹ thuật</p>
-        <h2 class="section-title text-2xl sm:text-3xl md:text-4xl mb-5">Prova Ultimate <span class="text-prova-red">3.5</span></h2>
-        <div class="rounded-2xl border border-prova-line overflow-hidden text-sm divide-y divide-prova-line bg-white">
-          <div class="flex justify-between gap-4 px-4 py-3.5"><span class="text-gray-500">Bề mặt</span><span class="font-bold text-right">Carbon Fiber</span></div>
-          <div class="flex justify-between gap-4 px-4 py-3.5"><span class="text-gray-500">Lõi</span><span class="font-bold text-right">PP tổ ong 16mm</span></div>
-          <div class="flex justify-between gap-4 px-4 py-3.5"><span class="text-gray-500">Trọng lượng</span><span class="font-bold text-right">7.8 – 8.2 oz</span></div>
-          <div class="flex justify-between gap-4 px-4 py-3.5"><span class="text-gray-500">Màu viền</span><span class="font-bold text-right">Mint · Cam · Tím · Đỏ · Vàng</span></div>
-          <div class="flex justify-between gap-4 px-4 py-3.5"><span class="text-gray-500">Phong cách</span><span class="font-bold text-right">Power + Control</span></div>
-        </div>
-        <div class="mt-4 rounded-2xl bg-prova-dark text-white p-5 text-sm">
-          <p class="font-bold mb-2"><i class="fas fa-user-check text-prova-red mr-2"></i>Phù hợp</p>
-          <ul class="space-y-1 text-white/80">
-            <li>✓ Trung cấp → nâng cao</li>
-            <li>✓ Muốn lực đánh + kiểm soát</li>
-            <li>✓ Tập luyện &amp; thi đấu thường xuyên</li>
-          </ul>
-        </div>
-      </div>
+  <!-- [8] SO SÁNH -->
+  <section id="so-sanh" class="max-w-site mx-auto px-4 sm:px-6 sec">
+    <div class="text-center max-w-xl mx-auto mb-5">
+      <p class="section-label mb-2">So sánh nhanh</p>
+      <h2 class="section-title text-2xl sm:text-3xl mb-2">Entry vs <span class="text-prova-red">Ultimate 3.5</span></h2>
     </div>
+    <div class="overflow-x-auto rounded-2xl border border-prova-line bg-white shadow-card">
+      <table class="w-full text-sm min-w-[320px]">
+        <thead>
+          <tr class="bg-gray-50 text-left">
+            <th class="px-4 py-3 font-semibold text-gray-500">Tiêu chí</th>
+            <th class="px-4 py-3 font-semibold text-gray-500">Vợt entry</th>
+            <th class="px-4 py-3 font-semibold text-prova-red">Ultimate 3.5</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-prova-line">
+          <tr><td class="px-4 py-3 text-gray-500">Mặt vợt</td><td class="px-4 py-3">Nhựa / composite</td><td class="px-4 py-3 font-bold">Carbon Fiber</td></tr>
+          <tr><td class="px-4 py-3 text-gray-500">Lõi</td><td class="px-4 py-3">13–14mm / “bọt”</td><td class="px-4 py-3 font-bold">PP 16mm tổ ong</td></tr>
+          <tr><td class="px-4 py-3 text-gray-500">Cảm giác</td><td class="px-4 py-3">Làm quen luật</td><td class="px-4 py-3 font-bold">Power + control CLB</td></tr>
+          <tr><td class="px-4 py-3 text-gray-500">Combo</td><td class="px-4 py-3">Thường chỉ vợt</td><td class="px-4 py-3 font-bold">Full set quà</td></tr>
+          <tr><td class="px-4 py-3 text-gray-500">Giá ưu đãi</td><td class="px-4 py-3">—</td><td class="px-4 py-3 font-black text-prova-red">990.000đ</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-center text-xs text-gray-400 mt-3">Không phải vợt “đắt nhất” — đúng công cụ để tập CLB 2–4 buổi/tuần.</p>
   </section>
 
-  <!-- ========== REVIEWS ========== -->
-  <section class="bg-prova-dark text-white py-12 sm:py-16">
-    <div class="max-w-site mx-auto px-4 sm:px-6">
-      <h2 class="section-title text-xl sm:text-3xl text-center mb-8">Người chơi đang nói gì?</h2>
-      <div class="grid sm:grid-cols-3 gap-3 sm:gap-4">
-        <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-5 text-sm">
-          <p class="text-amber-400 mb-2">★★★★★</p>
-          <p class="text-white/85 leading-relaxed mb-3">“Vợt đầm tay, dink ổn. Combo quà nhiều hơn mình nghĩ.”</p>
-          <p class="text-xs text-white/45 font-semibold">— Minh, Q.7</p>
-        </blockquote>
-        <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-5 text-sm">
-          <p class="text-amber-400 mb-2">★★★★★</p>
-          <p class="text-white/85 leading-relaxed mb-3">“Sweet spot rộng hơn vợt entry. Màu mint nhìn pro.”</p>
-          <p class="text-xs text-white/45 font-semibold">— Hạnh, Hà Nội</p>
-        </blockquote>
-        <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-5 text-sm">
-          <p class="text-amber-400 mb-2">★★★★★</p>
-          <p class="text-white/85 leading-relaxed mb-3">“Ship nhanh, tư vấn chọn màu nhiệt tình. Đáng tiền.”</p>
-          <p class="text-xs text-white/45 font-semibold">— Khoa, Đà Nẵng</p>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FAQ (giảm e ngại mobile) ========== -->
-  <section class="max-w-site mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <!-- [9] FAQ -->
+  <section id="faq" class="max-w-site mx-auto px-4 sm:px-6 sec bg-gray-50 border-y border-prova-line">
     <div class="max-w-xl mx-auto">
-      <p class="section-label text-center mb-2">Câu hỏi thường gặp</p>
-      <h2 class="section-title text-xl sm:text-2xl text-center mb-6">Chơi CLB – đặt online có yên tâm?</h2>
+      <p class="section-label text-center mb-2">FAQ</p>
+      <h2 class="section-title text-xl sm:text-2xl text-center mb-5">Đặt online — yên tâm như mua shop?</h2>
       <div class="space-y-2.5">
         <details class="faq-item" open>
-          <summary>Ship bao lâu? Có COD không? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
-          <p>Giao 2–4 ngày làm việc (tùy khu vực). Nhân viên gọi xác nhận trước khi gửi – bạn yên tâm về màu &amp; địa chỉ.</p>
+          <summary>Ship bao lâu? COD không? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
+          <p>Giao 2–4 ngày (tuỳ khu vực). Prova gọi xác nhận trước khi gửi — không thanh toán online trước.</p>
         </details>
         <details class="faq-item">
-          <summary>Vợt hợp người mới / trung cấp không? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
-          <p>Hợp người chơi đang tập CLB, muốn nâng từ vợt entry: lực đánh tốt hơn nhưng vẫn kiểm soát được dink/block.</p>
+          <summary>Hợp người mới / trung cấp? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
+          <p>Hợp người đang tập CLB, nâng từ vợt entry: lực tốt hơn vẫn kiểm soát dink/block.</p>
         </details>
         <details class="faq-item">
-          <summary>Combo quà có đúng như ảnh? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
-          <p>Đủ: mũ, áo, khăn, hộp bóng, 2 đôi tất, cuốn cán, dán viền. Màu phụ kiện có thể đổi theo tồn – vợt bạn chọn màu cố định.</p>
+          <summary>Combo quà đúng như ảnh? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
+          <p>Đủ: mũ, áo, khăn, bóng, 2 tất, cuốn cán, dán viền. Màu phụ kiện có thể đổi theo tồn; màu vợt bạn chọn cố định.</p>
         </details>
         <details class="faq-item">
-          <summary>Đổi trả / bảo hành thế nào? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
-          <p>Đổi trả 7 ngày nếu lỗi do NSX / sai hàng. Bảo hành 12 tháng theo chính sách Prova Sport.</p>
+          <summary>Đổi trả / bảo hành? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
+          <p>Đổi 7 ngày nếu lỗi NSX / sai hàng. BH 12 tháng theo chính sách Prova Sport.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Mua 2 vợt có ưu đãi? <i class="fas fa-chevron-down text-xs text-gray-400"></i></summary>
+          <p>Chọn gói “2 vợt” trong form — Prova gọi xác nhận giá combo đôi &amp; 2 màu.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- ========== PRICE + FORM (một khối chốt đơn — chuẩn ads mobile) ========== -->
-  <section id="gia" class="bg-gray-50 sec border-t border-prova-line">
+  <!-- [10] PRICE + FORM -->
+  <section id="gia" class="bg-white sec border-t border-prova-line">
     <div class="max-w-md mx-auto px-4 sm:px-6 text-center mb-5">
-      <p class="section-label mb-2">Chốt đơn nhanh</p>
+      <p class="section-label mb-2">Chốt đơn</p>
       <h2 class="section-title text-2xl sm:text-3xl mb-2">Giữ giá <span class="text-prova-red">990.000đ</span></h2>
-      <p class="text-sm text-gray-600 leading-relaxed">Giảm 18% + full combo. Điền form — Prova gọi xác nhận, không cần thanh toán trước.</p>
+      <p class="text-sm text-gray-600">Form 30 giây — Prova gọi chốt, không cần trả trước.</p>
     </div>
-
-    <div class="max-w-md mx-auto px-4 sm:px-6 mb-6">
+    <div class="max-w-md mx-auto px-4 sm:px-6 mb-5">
       <div class="checkout-card">
         <div class="price-row">
           <div>
@@ -810,13 +734,13 @@
           </div>
           <div class="text-right">
             <span class="inline-block text-[11px] bg-red-50 text-prova-red font-bold px-2.5 py-1 rounded-full mb-1">−18%</span>
-            <p class="text-[32px] font-black text-prova-red tracking-tight leading-none">990.000đ</p>
+            <p class="text-[32px] font-black text-prova-red tracking-tight leading-none" id="display-price">990.000đ</p>
           </div>
         </div>
-        <ul class="px-4 py-3.5 text-xs text-gray-600 space-y-1.5">
-          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Mũ + áo + khăn + bóng + 2 tất + cán + dán viền</span></li>
+        <ul class="px-4 py-3 text-xs text-gray-600 space-y-1.5">
+          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Full combo quà kèm theo</span></li>
           <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Free ship · BH 12 tháng · Đổi 7 ngày</span></li>
-          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Chọn 1/5 màu viền — Prova xác nhận trước khi gửi</span></li>
+          <li class="flex gap-2"><i class="fas fa-check text-prova-red mt-0.5 shrink-0"></i><span>Prova gọi xác nhận trước khi gửi</span></li>
         </ul>
       </div>
     </div>
@@ -827,45 +751,48 @@
       <div class="text-center mb-5">
         <img src="/assets/logo-mark-white.svg?v=g" alt="" width="44" height="44" class="w-11 h-11 mx-auto mb-2.5">
         <h2 id="form-title" class="section-title text-2xl mb-1">Đặt hàng — 30 giây</h2>
-        <p class="text-sm text-white/55 leading-relaxed">Không thanh toán online · Chỉ cần SĐT để Prova gọi chốt màu &amp; giao hàng</p>
+        <p class="text-sm text-white/55">Không thanh toán online · SĐT để Prova gọi chốt</p>
       </div>
 
       <form id="order-form" class="space-y-3.5" novalidate>
+        <!-- Pack 1 / 2 vợt (V3) -->
+        <div>
+          <span class="block text-xs font-medium text-white/70 mb-2">Gói đặt hàng *</span>
+          <input type="hidden" name="pack" id="pack-input" value="1">
+          <div class="grid grid-cols-2 gap-2" id="pack-chips">
+            <button type="button" class="pack-chip is-active" data-pack="1" data-price="990000">
+              <span class="font-bold text-sm">1 vợt</span>
+              <span class="text-xs text-white/70">990.000đ + combo</span>
+            </button>
+            <button type="button" class="pack-chip" data-pack="2" data-price="1890000">
+              <span class="font-bold text-sm">2 vợt</span>
+              <span class="text-xs text-white/70">Gọi chốt ưu đãi đôi</span>
+            </button>
+          </div>
+        </div>
         <div>
           <label class="block text-xs font-medium text-white/70 mb-1.5" for="f-name">Họ và tên *</label>
-          <input id="f-name" type="text" name="name" required autocomplete="name" placeholder="VD: Nguyễn Minh"
-                 class="field-input" enterkeyhint="next">
+          <input id="f-name" type="text" name="name" required autocomplete="name" placeholder="VD: Nguyễn Minh" class="field-input" enterkeyhint="next">
         </div>
         <div>
           <label class="block text-xs font-medium text-white/70 mb-1.5" for="f-phone">Số điện thoại * <span class="text-white/40 font-normal">(để Prova gọi)</span></label>
-          <input id="f-phone" type="tel" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9\s+.-]{9,15}" placeholder="09xx xxx xxx"
-                 class="field-input" enterkeyhint="next">
+          <input id="f-phone" type="tel" name="phone" required autocomplete="tel" inputmode="numeric" pattern="[0-9\s+.-]{9,15}" placeholder="09xx xxx xxx" class="field-input" enterkeyhint="next">
         </div>
         <div>
           <span class="block text-xs font-medium text-white/70 mb-2" id="color-label">Chọn màu viền *</span>
           <input type="hidden" name="color" id="color-input" value="Xanh mint">
           <div class="grid grid-cols-5 gap-1.5 sm:gap-2" id="color-chips" role="listbox" aria-labelledby="color-label">
-            <button type="button" class="color-chip is-active" data-color="Xanh mint" role="option" aria-selected="true">
-              <span class="dot" style="background:#2DD4BF"></span><span>Mint</span>
-            </button>
-            <button type="button" class="color-chip" data-color="Cam" role="option" aria-selected="false">
-              <span class="dot" style="background:#F97316"></span><span>Cam</span>
-            </button>
-            <button type="button" class="color-chip" data-color="Tím" role="option" aria-selected="false">
-              <span class="dot" style="background:#C026D3"></span><span>Tím</span>
-            </button>
-            <button type="button" class="color-chip" data-color="Đỏ" role="option" aria-selected="false">
-              <span class="dot" style="background:#E30613"></span><span>Đỏ</span>
-            </button>
-            <button type="button" class="color-chip" data-color="Vàng" role="option" aria-selected="false">
-              <span class="dot" style="background:#EAB308"></span><span>Vàng</span>
-            </button>
+            <button type="button" class="color-chip is-active" data-color="Xanh mint" role="option" aria-selected="true"><span class="dot" style="background:#2DD4BF"></span><span>Mint</span></button>
+            <button type="button" class="color-chip" data-color="Cam" role="option" aria-selected="false"><span class="dot" style="background:#F97316"></span><span>Cam</span></button>
+            <button type="button" class="color-chip" data-color="Tím" role="option" aria-selected="false"><span class="dot" style="background:#C026D3"></span><span>Tím</span></button>
+            <button type="button" class="color-chip" data-color="Đỏ" role="option" aria-selected="false"><span class="dot" style="background:#E30613"></span><span>Đỏ</span></button>
+            <button type="button" class="color-chip" data-color="Vàng" role="option" aria-selected="false"><span class="dot" style="background:#EAB308"></span><span>Vàng</span></button>
           </div>
+          <p class="text-[11px] text-white/40 mt-1.5" id="pack2-color-hint" hidden>Gói 2 vợt: ghi chú màu vợt 2 trong địa chỉ hoặc chờ Prova gọi hỏi.</p>
         </div>
         <div>
           <label class="block text-xs font-medium text-white/70 mb-1.5" for="f-address">Địa chỉ nhận hàng *</label>
-          <textarea id="f-address" name="address" required rows="2" placeholder="Số nhà, đường, phường, quận, tỉnh/TP"
-                    class="field-input resize-none" enterkeyhint="done"></textarea>
+          <textarea id="f-address" name="address" required rows="2" placeholder="Số nhà, đường, phường, quận, tỉnh/TP" class="field-input resize-none" enterkeyhint="done"></textarea>
         </div>
         <button type="submit" id="order-submit" class="btn-primary w-full h-12 text-base disabled:opacity-60 disabled:pointer-events-none">
           Gửi đơn — Chờ Prova gọi xác nhận
@@ -892,6 +819,7 @@
       </div>
       <div class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
         <a href="https://provasport.vn" class="hover:text-white" target="_blank" rel="noopener">provasport.vn</a>
+        <a href="https://www.tiktok.com/search?q=prova%20pickleball" class="hover:text-white" target="_blank" rel="noopener">TikTok</a>
         <a href="tel:0868931691" class="hover:text-white font-semibold">0868.93.16.91</a>
       </div>
     </div>
@@ -944,6 +872,28 @@
       });
     }
 
+    /* Pack 1 / 2 vợt */
+    var packInput = document.getElementById('pack-input');
+    var packChips = document.getElementById('pack-chips');
+    var displayPrice = document.getElementById('display-price');
+    var pack2Hint = document.getElementById('pack2-color-hint');
+    if (packChips && packInput) {
+      packChips.addEventListener('click', function (e) {
+        var btn = e.target.closest('.pack-chip');
+        if (!btn) return;
+        packChips.querySelectorAll('.pack-chip').forEach(function (c) {
+          c.classList.remove('is-active');
+        });
+        btn.classList.add('is-active');
+        packInput.value = btn.getAttribute('data-pack') || '1';
+        var price = parseInt(btn.getAttribute('data-price') || '990000', 10);
+        if (displayPrice) {
+          displayPrice.textContent = price.toLocaleString('vi-VN') + 'đ';
+        }
+        if (pack2Hint) pack2Hint.hidden = packInput.value !== '2';
+      });
+    }
+
     /* Video play overlay */
     var vid = document.getElementById('product-video');
     var shell = document.getElementById('video-shell');
@@ -989,6 +939,7 @@
       var phone = (form.phone.value || '').trim();
       var color = (colorInput && colorInput.value) || 'Xanh mint';
       var address = (form.address.value || '').trim();
+      var pack = (packInput && packInput.value) || '1';
       if (!name || !phone || !address) {
         if (!name) markError(form.name);
         if (!phone) markError(form.phone);
@@ -1003,8 +954,11 @@
         return;
       }
 
+      var qty = pack === '2' ? 2 : 1;
       var payload = {
         name: name, phone: phone, color: color, address: address,
+        pack: pack, quantity: qty,
+        product: 'Prova Ultimate 3.5',
         utm_source: getParam('utm_source'), utm_medium: getParam('utm_medium'),
         utm_campaign: getParam('utm_campaign'), fbclid: getParam('fbclid'), ttclid: getParam('ttclid'),
         fbp: getCookie('_fbp'), fbc: getCookie('_fbc'),
@@ -1021,8 +975,11 @@
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
-        try { sessionStorage.setItem('prova_lead', JSON.stringify({ name: name, phone: phone, color: color, t: Date.now() })); } catch (x) {}
-        // Dùng .html để tránh redirect loop Pretty URL trên một số setup
+        try {
+          sessionStorage.setItem('prova_lead', JSON.stringify({
+            name: name, phone: phone, color: color, pack: pack, quantity: qty, t: Date.now()
+          }));
+        } catch (x) {}
         location.href = '/thank-you' + (location.search || '');
       } catch (err) {
         setMsg('Lỗi gửi. Gọi 0868.93.16.91', 'err');
