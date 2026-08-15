@@ -295,7 +295,7 @@ https://votpickleball-prova.pages.dev/
 - [x] Thank-you Lead pixel  
 - [x] **V3 live:** social proof sớm · video · combo · gallery · specs · so sánh · FAQ · form pack 1/2  
 - [x] Thank-you Path A call / Path B TikTok  
-- [ ] TikTok URL shop chính thức (thay search tạm)  
+- [x] TikTok official: https://www.tiktok.com/@votpickleballprova  
 - [ ] Zalo chat (phase 2)  
 - [ ] Heatmap / scroll (phase 2)  
 
