@@ -28,7 +28,8 @@
   <script src="/assets/meta-pixel.js?v=m"></script>
   <script src="/assets/tiktok-pixel.js?v=m"></script>
   <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1032930589212752&ev=PageView&noscript=1"/></noscript>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <!-- FA load ngay để icon combo không bị thiếu glyph / sai hiển thị -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
       --brand: #E30613;
@@ -283,15 +284,24 @@
 
     .combo-item {
       display: flex; gap: 12px; align-items: flex-start;
-      padding: 12px; border: 1px solid var(--line); border-radius: 14px;
+      padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px;
       background: #fff; margin-bottom: 8px;
     }
+    /* Icon combo: luôn đỏ brand Prova #E30613 (không lẫn màu SP / theme) */
     .combo-ico {
       width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
-      background: var(--brand); color: #fff;
-      display: grid; place-items: center;
+      background: #E30613 !important;
+      color: #fff !important;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
     }
-    .combo-item strong { display: block; font-size: 14px; margin-bottom: 2px; }
+    .combo-ico i,
+    .combo-ico .fas,
+    .combo-ico .fa {
+      color: #fff !important;
+      opacity: 1 !important;
+    }
+    .combo-item strong { display: block; font-size: 14px; margin-bottom: 2px; color: #0B0B0B; }
     .combo-item span { font-size: 12px; color: var(--muted); }
 
     .video-wrap {
@@ -530,13 +540,34 @@
       <p class="label">Combo quà</p>
       <h2 class="h2">Mua vợt — nhận trọn set Prova</h2>
       <p class="lead">Đủ đồ ra sân, không phát sinh mua lẻ.</p>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-table-tennis-paddle-ball"></i></span><div><strong>1 × Vợt Ultimate 3.5</strong><span>Chọn 1/5 màu viền chuẩn</span></div></div>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-hat-cowboy"></i></span><div><strong>1 × Mũ Prova Sport</strong><span>Logo P chính hãng</span></div></div>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-shirt"></i></span><div><strong>1 × Áo phông Prova</strong><span>Đồng bộ thương hiệu</span></div></div>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-bath"></i></span><div><strong>1 × Khăn tắm</strong><span>Thấm hút sau set</span></div></div>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-baseball"></i></span><div><strong>1 × Hộp bóng</strong><span>Tập / giao đấu ngay</span></div></div>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-socks"></i></span><div><strong>2 × Đôi tất</strong><span>Đủ 2 buổi chơi</span></div></div>
-      <div class="combo-item"><span class="combo-ico"><i class="fas fa-tape"></i></span><div><strong>Cuốn cán + Dán viền</strong><span>Bám tay &amp; bảo vệ viền</span></div></div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-table-tennis-paddle-ball"></i></span>
+        <div><strong>1 × Vợt Ultimate 3.5</strong><span>Chọn 1/5 màu viền chuẩn</span></div>
+      </div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-hat-cowboy"></i></span>
+        <div><strong>1 × Mũ Prova Sport</strong><span>Logo P chính hãng</span></div>
+      </div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-shirt"></i></span>
+        <div><strong>1 × Áo phông Prova</strong><span>Đồng bộ thương hiệu</span></div>
+      </div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-bath"></i></span>
+        <div><strong>1 × Khăn tắm</strong><span>Thấm hút sau set</span></div>
+      </div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-circle"></i></span>
+        <div><strong>1 × Hộp bóng</strong><span>Tập / giao đấu ngay</span></div>
+      </div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-socks"></i></span>
+        <div><strong>2 × Đôi tất</strong><span>Đủ 2 buổi chơi</span></div>
+      </div>
+      <div class="combo-item">
+        <span class="combo-ico" aria-hidden="true"><i class="fas fa-tape"></i></span>
+        <div><strong>Cuốn cán + Dán viền</strong><span>Bám tay &amp; bảo vệ viền</span></div>
+      </div>
       <p style="font-size:11px;color:var(--muted);margin:8px 0 14px">* Màu phụ kiện có thể đổi theo tồn — màu vợt bạn chọn cố định.</p>
       <a class="btn btn-primary" href="#mua">Chọn màu &amp; đặt form</a>
     </div>
