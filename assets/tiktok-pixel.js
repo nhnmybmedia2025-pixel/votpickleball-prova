@@ -47,5 +47,26 @@
 
     ttq.load(String(id));
     ttq.page();
+
+    // ViewContent trên landing (tắt: data-tt-view-content="0" trên <html>)
+    try {
+      var skipVc =
+        document.documentElement.getAttribute('data-tt-view-content') === '0' ||
+        (document.body && document.body.getAttribute('data-tt-view-content') === '0');
+      if (!skipVc) {
+        var p = (window.PROVA_TRACKING && window.PROVA_TRACKING.PRODUCT) || {};
+        ttq.track('ViewContent', {
+          contents: [
+            {
+              content_id: p.content_id || 'prova-ultimate-3.5',
+              content_type: 'product',
+              content_name: p.content_name || 'Prova Ultimate 3.5'
+            }
+          ],
+          value: p.value != null ? p.value : 990000,
+          currency: p.currency || 'VND'
+        });
+      }
+    } catch (e) {}
   })(window, document, 'ttq');
 })();

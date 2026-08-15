@@ -40,4 +40,22 @@
     fbq('init', String(id));
   }
   fbq('track', 'PageView');
+
+  // ViewContent trên landing (tắt: data-meta-view-content="0" trên <html>)
+  try {
+    var skipVc =
+      document.documentElement.getAttribute('data-meta-view-content') === '0' ||
+      document.body.getAttribute('data-meta-view-content') === '0';
+    if (!skipVc) {
+      var p = (cfg.PRODUCT) || {};
+      fbq('track', 'ViewContent', {
+        content_ids: [p.content_id || 'prova-ultimate-3.5'],
+        content_name: p.content_name || 'Prova Ultimate 3.5',
+        content_type: 'product',
+        content_category: p.content_category || 'Pickleball Paddle',
+        value: p.value != null ? p.value : 990000,
+        currency: p.currency || 'VND'
+      });
+    }
+  } catch (e) {}
 })();

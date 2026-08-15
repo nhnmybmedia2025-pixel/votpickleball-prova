@@ -74,37 +74,31 @@
   </script>
   <script src="/assets/ga-beacon.js?v=k"></script>
 
-  <!-- Meta Pixel + Lead (inline) -->
+  <!-- Meta + TikTok: PageView qua shared scripts; Lead/SubmitForm bên dưới -->
   <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    var _am=window.PROVA_PIXEL_USER||{},_i={};
-    if(_am.ph)_i.ph=_am.ph;if(_am.fn)_i.fn=_am.fn;if(_am.ln)_i.ln=_am.ln;
-    Object.keys(_i).length?fbq('init','1032930589212752',_i):fbq('init','1032930589212752');
-    fbq('track','PageView');
+    // Thank-you: không bắn ViewContent trùng (chỉ Lead)
+    document.documentElement.setAttribute('data-meta-view-content','0');
+    document.documentElement.setAttribute('data-tt-view-content','0');
   </script>
+  <script src="/assets/tracking-config.js?v=m"></script>
+  <script src="/assets/meta-pixel.js?v=m"></script>
+  <script src="/assets/tiktok-pixel.js?v=m"></script>
   <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1032930589212752&ev=PageView&noscript=1"/></noscript>
-
-  <!-- TikTok Pixel + SubmitForm (inline) -->
-  <script>
-    !function (w, d, t) {
-      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
-      ttq.load('D9DSLURC77U79CKF57FG');
-      ttq.page();
-    }(window, document, 'ttq');
-  </script>
   <script>
     (function(){
       var metaDone=false, ttDone=false, gaDone=false;
+      var prod=(window.PROVA_TRACKING&&window.PROVA_TRACKING.PRODUCT)||{};
+      var pName=prod.content_name||'Prova Ultimate 3.5';
+      var pCat=prod.content_category||'Pickleball Paddle';
+      var pVal=prod.value!=null?prod.value:990000;
+      var pCur=prod.currency||'VND';
+      var pId=prod.content_id||'prova-ultimate-3.5';
       function fireMeta(){
         if(metaDone||typeof fbq!=='function')return;
         try{if(sessionStorage.getItem('prova_meta_lead')==='1'){metaDone=true;return;}}catch(e){}
         metaDone=true;
         try{sessionStorage.setItem('prova_meta_lead','1');}catch(e2){}
-        var metaParams={content_name:'Prova Ultimate 3.5',content_category:'Pickleball Paddle',currency:'VND',value:990000};
+        var metaParams={content_name:pName,content_category:pCat,currency:pCur,value:pVal};
         fbq('track','Lead',metaParams);
         // CompleteRegistration = form đăng ký/đặt hàng thành công (chuẩn Meta)
         fbq('track','CompleteRegistration',metaParams);
@@ -115,9 +109,9 @@
         ttDone=true;
         try{sessionStorage.setItem('prova_tt_submit','1');}catch(e2){}
         ttq.track('SubmitForm',{
-          contents:[{content_id:'prova-ultimate-3.5',content_type:'product',content_name:'Prova Ultimate 3.5'}],
-          value:990000,
-          currency:'VND'
+          contents:[{content_id:pId,content_type:'product',content_name:pName}],
+          value:pVal,
+          currency:pCur
         });
       }
       function fireGA(){
